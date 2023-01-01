@@ -4,10 +4,105 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
     <title>Todo List</title>
 </head>
 <body>
-    <div class="content"></div>
+        <div class="header">
+            <div class="header-nav">
+                <button class="open-aside">
+                    <iconify-icon icon="mdi:menu" style="color: white;"></iconify-icon>
+                </button>
+                <button class="go-home">
+                    <iconify-icon icon="material-symbols:home-outline-rounded" style="color: white;"></iconify-icon>
+                </button>
+                <p>Todolist</p>
+            </div>
+            <div class="header-actions">
+                <div class="toggle-theme">
+                    <label for="theme-mode" class="switch">
+                        <input id="theme-mode" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <aside class="sidebar is-visible">
+                <div class="sidebar-content-nav">
+                    <div class="side-nav">
+                        <iconify-icon icon="ic:baseline-calendar-month"></iconify-icon>
+                        <a href="">Today</a>
+                    </div>
+                    <div class="side-nav">
+                        <iconify-icon icon="icons8:todo-list"></iconify-icon>
+                        <a href="">All</a>
+                    </div>
+                </div>
+                <div class="sidebar-content-projects">
+                    <div class="project-title">
+                        <iconify-icon icon="material-symbols:border-all-outline-rounded"></iconify-icon>                       
+                        <a href="">Projects</a>
+                    </div>
+                    <div class="project-items">
+                        <div class="project-item">
+                            <div class="dot"></div>
+                            <a href="">Work</a>
+                        </div>
+                        <div class="project-item">
+                            <div class="dot"></div>
+                            <a href="">Home</a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <main class="main">
+                <div class="todo-container">
+                    <h1>Today</h1>
+                    <div class="todo-list">
+                        <div class="todo-wrapper">
+                            <div class="todo-item">
+                                <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;">
+                                <label class="cbx" for="cbx">
+                                    <span>
+                                        <svg width="12px" height="9px" viewBox="0 0 12 9">
+                                            <polyline points="1 5 4 8 11 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>To-do 1</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="todo-wrapper">
+                            <div class="todo-item">
+                                <input class="inp-cbx" id="cbx2" type="checkbox" style="display: none;">
+                                <label class="cbx" for="cbx2">
+                                    <span>
+                                        <svg width="12px" height="9px" viewBox="0 0 12 9">
+                                            <polyline points="1 5 4 8 11 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>To-do 1</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="todo-wrapper">
+                            <div class="todo-item">
+                                <input class="inp-cbx" id="cbx3" type="checkbox" style="display: none;">
+                                <label class="cbx" for="cbx3">
+                                    <span>
+                                        <svg width="12px" height="9px" viewBox="0 0 12 9">
+                                            <polyline points="1 5 4 8 11 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>To-do 1</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
     <script src="bundle.js"></script>
 </body>
 </html>
