@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+
+:root,
+:root.light {
+    --accent-color: #03A696;
+    --aside-color: #e0ddd1;
+    --aside-hover-color: #dbd9cf;
+    --main-color: #ECE8DD;
+    --text-color: 0, 0, 0;
+    --todo-hover: 0, 0, 0;
+}
+:root.dark {
+     --aside-color: #272727;
+    --aside-hover-color: #353535;
+    --main-color: #171717;
+    --text-color: 255, 255, 255;
+    --todo-hover: 153, 153, 153;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+body {
+    color: rgb(var(--text-color), 0.8);
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+.header {
+    color: white;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 1.3rem;
+    padding: 2rem;
+    background-color: var(--accent-color);
+}
+
+.header-nav {
+    display: flex;
+    gap: 0.625rem;
+}
+
+.header button {
+    background: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    /* align-self: baseline; */
+}
+
+.header button:hover {
+    background: hsla(0,0%,100%,.2);
+}
+
+.toggle-theme input[type="checkbox"] {
+visibility: hidden;
+display: none;
+}
+
+.toggle-theme *,
+.toggle-theme ::after,
+.toggle-theme ::before {
+box-sizing: border-box;
+}
+
+/* The switch - the box around the slider */
+.toggle-theme .switch {
+--width-of-switch: 2.5em;
+--height-of-switch: 1.3em;
+/* size of sliding icon -- sun and moon */
+--size-of-icon: 1em;
+/* it is like a inline-padding of switch */
+--slider-offset: 0.3em;
+position: relative;
+width: var(--width-of-switch);
+height: var(--height-of-switch);
+display: inline-block;
+}
+
+/* The slider */
+.toggle-theme .slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #f4f4f5;
+transition: .4s;
+border-radius: 30px;
+}
+
+.toggle-theme .slider:before {
+position: absolute;
+content: "";
+height: var(--size-of-icon,1.4em);
+width: var(--size-of-icon,1.4em);
+border-radius: 20px;
+left: var(--slider-offset,0.3em);
+top: 50%;
+transform: translateY(-50%);
+background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
+;
+transition: .4s;
+}
+
+.toggle-theme input:checked + .slider {
+background-color: #303136;
+}
+
+.toggle-theme input:checked + .slider:before {
+left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
+background: #303136;
+/* change the value of second inset in box-shadow to change the angle and direction of the moon  */
+box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
+}
+
+
+.content {
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+aside {
+    width: 250px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    background-color: var(--aside-color);
+}
+
+
+.sidebar.is-visible  ~ .main {
+    transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-basis: 0;
+}
+
+.sidebar-content-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 1rem 1rem;
+}
+
+.side-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.side-nav:hover, .project-item:hover, .project-title:hover {
+    background-color: var(--aside-hover-color);
+}
+
+.sidebar-content-projects {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1rem 0 1rem;
+}
+
+.project-title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+
+.project-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 5px 5px 10px;
+    border-radius: 8px;
+}
+
+.dot {
+    height: 13px;
+    width: 13px;
+    background-color: #b6b6b6;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+
+.main {
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%;
+    /* min-height: 0; */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 100%;
+    background-color: var(--main-color);
+}
+
+
+.todo-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    box-sizing: border-box;
+    padding: 4rem 0 0 6rem;
+}
+
+.todo-container h1 {
+    font-size: 2rem;
+}
+
+.todo-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.todo-wrapper {
+    width: 50%;
+    padding: 0.625rem;
+    /* border: 2px solid rgba(138, 138, 138, 0.568); */
+    border-radius: 5px;
+    box-shadow: 0 1px 2px rgb(var(--todo-hover), 0.15);
+    transition: all 0.3s ease-in-out;
+}
+
+.todo-wrapper:after {
+    opacity: 0;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgb(var(--todo-hover), 0.3);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.todo-wrapper:hover {
+transform: scale(1.02, 1.02);
+}
+
+/* Fade in the pseudo-element with the bigger shadow */
+.todo-wrapper:hover::after {
+opacity: 1;
+}
+
+.todo-item .cbx {
+-webkit-user-select: none;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+cursor: pointer;
+}
+.todo-item .cbx span {
+display: inline-block;
+vertical-align: middle;
+transform: translate3d(0, 0, 0);
+}
+.todo-item .cbx span:first-child {
+position: relative;
+width: 24px;
+height: 24px;
+border-radius: 50%;
+transform: scale(1);
+vertical-align: middle;
+border: 1px solid #B9B8C3;
+transition: all 0.2s ease;
+}
+.todo-item .cbx span:first-child svg {
+position: absolute;
+z-index: 1;
+top: 8px;
+left: 6px;
+fill: none;
+stroke: white;
+stroke-width: 2;
+stroke-linecap: round;
+stroke-linejoin: round;
+stroke-dasharray: 16px;
+stroke-dashoffset: 16px;
+transition: all 0.3s ease;
+transition-delay: 0.1s;
+transform: translate3d(0, 0, 0);
+}
+.todo-item .cbx span:first-child:before {
+content: "";
+width: 100%;
+height: 100%;
+background: #579BB1;
+display: block;
+transform: scale(0);
+opacity: 1;
+border-radius: 50%;
+transition-delay: 0.2s;
+}
+.todo-item .cbx span:last-child {
+margin-left: 8px;
+}
+.todo-item .cbx span:last-child:after {
+content: "";
+position: absolute;
+top: 8px;
+left: 0;
+height: 1px;
+width: 100%;
+background: #B9B8C3;
+transform-origin: 0 0;
+transform: scaleX(0);
+}
+.todo-item .cbx:hover span:first-child {
+border-color: var(--accent-color);
+}
+
+.todo-item .inp-cbx:checked + .cbx span:first-child {
+border-color: var(--accent-color);
+background: var(--accent-color);
+animation: cbx-15 0.6s ease;
+}
+.todo-item .inp-cbx:checked + .cbx span:first-child svg {
+stroke-dashoffset: 0;
+}
+.todo-item .inp-cbx:checked + .cbx span:first-child:before {
+transform: scale(2.2);
+opacity: 0;
+transition: all 0.6s ease;
+}
+.todo-item .inp-cbx:checked + .cbx span:last-child {
+color: #B9B8C3;
+transition: all 0.3s ease;
+}
+.todo-item .inp-cbx:checked + .cbx span:last-child:after {
+transform: scaleX(1);
+transition: all 0.3s ease;
+}
+
+@keyframes cbx-15 {
+50% {
+    transform: scale(1.2);
+}
+}
+
+
