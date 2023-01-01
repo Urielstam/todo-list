@@ -81,3 +81,24 @@ toggleTheme.addEventListener('change', (e) => {
       }
 });
 
+const addTodo = document.querySelector('.add-todo-btn');
+const addOverlay = document.querySelector('.overlay-create-new');
+const addForm = document.querySelector('form');
+addTodo.addEventListener('click', (e) => {
+    addOverlay.classList.add('is-visible');
+    // addForm.classList.add('show');
+})
+
+const buttons = document.querySelectorAll('.form-btn');
+console.log(buttons)
+buttons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+    })
+});
+
+const closeForm = document.querySelector('.cancel-form-btn');
+closeForm.addEventListener('click', (e) => {
+    addOverlay.classList.remove('is-visible');
+    // addForm.classList.remove('show');
+})

@@ -35,8 +35,138 @@ body {
     width: 100vw;
     height: 100vh;
     font-family: 'Open Sans', sans-serif;
-    /* display: flex;
-    flex-direction: column; */
+   
+}
+
+
+/* FORM OVERLAY FORM */
+
+.overlay-create-new {
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    /* display: none; */
+    -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+    -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+    transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  }
+  .overlay-create-new.is-visible {
+    opacity: 1;
+    visibility: visible;
+    /* display: flex; */
+    -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+    -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+    transition: opacity 0.3s 0s, visibility 0s 0s;
+  }
+  
+  form.create-new {
+    
+    background-color: var(--aside-color);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    box-sizing: border-box;
+    width: clamp(350px, 50%, 600px);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: 15px;
+    padding: 1rem;
+
+    -webkit-transform: translateY(-40px);
+    -moz-transform: translateY(-40px);
+    -ms-transform: translateY(-40px);
+    -o-transform: translateY(-40px);
+    transform: translateY(-40px);
+    /* Force Hardware Acceleration in WebKit */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+
+.create-new-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.create-new-main input {
+    outline: none;
+    font-size: 0.8rem;
+    background-color: var(--aside-color);
+}
+
+.create-new-main input:nth-child(1) {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.create-new-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.priority {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.priority div:nth-child(1) {
+    background-color: #36AE7C;
+}
+
+.priority div:nth-child(2) {
+    background-color: #F9D923;
+}
+
+.priority div:nth-child(3) {
+    background-color: #EB5353;
+}
+
+.create-new-options-main, .create-new-actions {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.create-new-options button,  .create-new-actions button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.create-new-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #3b3b3b5b;
+}
+
+.create-new-actions {
+    align-self: flex-end;
+    font-weight: 600;
+}
+
+/* || CONTENTS */
+.contents {
+    height: 100%;
     display: grid;
     grid-template-columns: auto 3fr;
     grid-template-rows: auto 1fr;
@@ -160,13 +290,6 @@ box-shadow: inset -3px -2px 5px -2px var(--accent-color), inset -10px -4px 0 0 v
 }
 
 
-/* .content {
-    height: 100%;
-    display: flex;
-    justify-content: flex-end;
-} */
-
-
 /* || ASIDE */
 nav {
     grid-area: nav;
@@ -194,7 +317,7 @@ nav {
     border-radius: 8px;
 }
 
-.side-nav:hover, .project-item:hover, .project-title:hover {
+.side-nav:hover, .project-item:hover, .project-title-container:hover {
     background-color: var(--aside-hover-color);
 }
 
@@ -205,6 +328,17 @@ nav {
     padding: 0 1rem 0 1rem;
 }
 
+.project-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-title-container .add-project {
+    cursor: pointer;
+    font-size: 1.4rem;
+}
+
 .project-title {
     display: flex;
     align-items: center;
@@ -213,7 +347,6 @@ nav {
     padding: 5px;
     border-radius: 8px;
 }
-
 
 .project-item {
     display: flex;
@@ -232,7 +365,7 @@ nav {
 }
 
 /* || MAIN */
-.main {
+.main-container {
     grid-area: main;
     height: 100%;
     /* min-height: 0; */
@@ -254,7 +387,7 @@ nav {
     padding-left: 5px;
 }
 
-.add-todo-btn {
+.add-todo-btn, .add-project {
     color: var(--text-color);
     margin-top: 7px;
     background: none;
@@ -265,11 +398,11 @@ nav {
     transition: transform .2s;
 }
 
-.add-todo-btn:not(:disabled):hover {
+.add-todo-btn:not(:disabled):hover, .add-project:not(:disabled):hover {
     transform: scale(1.05);
 }
 
-.add-todo-btn:not(:disabled):hover:active {
+.add-todo-btn:not(:disabled):hover:active, .add-project:not(:disabled):hover:active {
     transform: scale(1.05) translateY(.125rem);
 }
 
@@ -277,11 +410,11 @@ nav {
     background-color: var(--todo-btn-hover);
 }
 
-.add-todo-btn:focus {
+.add-todo-btn:focus, .add-project:focus {
     outline: 0 solid transparent;
 }
   
-.add-todo-btn:focus:before {
+.add-todo-btn:focus:before, .add-project:focus:before {
 content: "";
 left: calc(-1*.375rem);
 pointer-events: none;
@@ -291,15 +424,15 @@ transition: border-radius;
 user-select: none;
 }
 
-.add-todo-btn:focus:not(:focus-visible) {
+.add-todo-btn:focus:not(:focus-visible), .add-project:focus:not(:focus-visible) {
 outline: 0 solid transparent;
 }
 
-.add-todo-btn:focus:not(:focus-visible):before {
+.add-todo-btn:focus:not(:focus-visible):before, .add-project:focus:not(:focus-visible):before {
 border-width: 0;
 }
 
-.add-todo-btn:not(:disabled):active {
+.add-todo-btn:not(:disabled):active, .add-project:not(:disabled):active {
 transform: translateY(.125rem);
 }
 
@@ -356,13 +489,9 @@ opacity: 1;
 }
 
 
-
 .todo-item-actions {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.3rem;
-    /* align-self: flex-end; */
 }
 
 .todo-item-actions button {
@@ -371,7 +500,7 @@ opacity: 1;
     height: 25px;
     width: 25px;
     border-radius: 5px;
-    font-size: 1.4rem;
+    font-size: 1rem;
     cursor: pointer;
 }
 

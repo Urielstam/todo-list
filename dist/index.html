@@ -8,29 +8,56 @@
     <title>Todo List</title>
 </head>
 <body>
-    <div class="header">
-        <div class="header-nav">
-            <button class="open-aside">
-                <iconify-icon icon="mdi:menu" style="color: white;"></iconify-icon>
-            </button>
-            <button class="go-home">
-                <iconify-icon icon="material-symbols:home-outline-rounded" style="color: white;"></iconify-icon>
-            </button>
-            <p>Todolist</p>
-        </div>
-        <div class="header-actions">
-            <!-- <button class="add-todo">
-                <iconify-icon icon="material-symbols:add"></iconify-icon>
-            </button> -->
-            <div class="toggle-theme">
-                <label for="theme-mode" class="switch">
-                    <input id="theme-mode" type="checkbox">
-                    <span class="slider"></span>
-                </label>
+    <div class="overlay-create-new">
+        <form action="" class="create-new">
+            <div class="create-new-main">
+                <input id="name" type="text" placeholder="Task name">
+                <input id="description" type="text" placeholder="Description">
+            </div>
+            <div class="create-new-options">
+                <div class="create-new-options-main">
+                    <button action="/" class="form-btn due-date">
+                        <iconify-icon icon="system-uicons:calendar-last-day"></iconify-icon>
+                        <div>Date</div>
+                    </button>
+                    <button action="/" class="form-btn task-project">Project</button>
+                </div>
+                <div class="create-new-options-extra">
+                    <div class="priority">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-new-divider"></div>
+            <div class="create-new-actions">
+                <button action="/" class="form-btn cancel-form-btn">Cancel</button>
+                <button action="/" class="form-btn add-task">Add task</button>
+            </div>
+        </form>
+    </div>
+     
+    <div class="contents">
+        <div class="header">
+            <div class="header-nav">
+                <button class="open-aside">
+                    <iconify-icon icon="mdi:menu" style="color: white;"></iconify-icon>
+                </button>
+                <button class="go-home">
+                    <iconify-icon icon="material-symbols:home-outline-rounded" style="color: white;"></iconify-icon>
+                </button>
+                <p>Todolist</p>
+            </div>
+            <div class="header-actions">
+                <div class="toggle-theme">
+                    <label for="theme-mode" class="switch">
+                        <input id="theme-mode" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- <div class="content"> -->
         <nav class="sidebar is-visible">
             <div class="sidebar-content-nav">
                 <div class="side-nav">
@@ -43,9 +70,14 @@
                 </div>
             </div>
             <div class="sidebar-content-projects">
-                <div class="project-title">
-                    <iconify-icon icon="material-symbols:border-all-outline-rounded"></iconify-icon>                       
-                    <a href="">Projects</a>
+                <div class="project-title-container">
+                    <div class="project-title">
+                        <iconify-icon icon="material-symbols:border-all-outline-rounded"></iconify-icon>                       
+                        <a href="">Projects</a>
+                    </div>
+                    <div class="add-project">
+                        <iconify-icon icon="material-symbols:add-rounded"></iconify-icon>
+                    </div>
                 </div>
                 <div class="project-items">
                     <div class="project-item">
@@ -59,21 +91,47 @@
                 </div>
             </div>
         </nav>
-        <main class="main">
-                <div class="todo-container">
-                <h1>Today</h1>
-                <div class="add-todo">
-                    <button class="add-todo-btn">
-                        <iconify-icon icon="material-symbols:add-circle-outline-rounded"></iconify-icon>                    
-                    </button>
-                    <p>Add a Task</p>
-                </div>
-                <div class="todo-list">
-                    <div class="todo-wrapper">
-                        <div class="todo-item">
-                            <div class="todo-item-main">
-                                <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;">
-                                <label class="cbx" for="cbx">
+        <div class="main-container">
+            <main class="main">
+                    <div class="todo-container">
+                    <h1>Today</h1>
+                    <div class="add-todo">
+                        <button class="add-todo-btn">
+                            <iconify-icon icon="material-symbols:add-circle-outline-rounded"></iconify-icon>                    
+                        </button>
+                        <p>Add a Task</p>
+                    </div>
+                    <div class="todo-list">
+                        <div class="todo-wrapper">
+                            <div class="todo-item">
+                                <div class="todo-item-main">
+                                    <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;">
+                                    <label class="cbx" for="cbx">
+                                        <span>
+                                            <svg width="12px" height="9px" viewBox="0 0 12 9">
+                                                <polyline points="1 5 4 8 11 1"></polyline>
+                                            </svg>
+                                        </span>
+                                        <span>To-do 1</span>
+                                    </label>
+                                </div>
+                                <div class="todo-item-actions">
+                                    <button class="edit-item">
+                                        <iconify-icon icon="ph:note-pencil-bold"></iconify-icon>
+                                    </button>
+                                    <button class="delete-item">
+                                        <iconify-icon icon="ic:round-delete-outline"></iconify-icon>
+                                    </button>
+                                    <button class="item-details">
+                                        <iconify-icon icon="mdi:dots-horizontal"></iconify-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="todo-wrapper">
+                            <div class="todo-item">
+                                <input class="inp-cbx" id="cbx2" type="checkbox" style="display: none;">
+                                <label class="cbx" for="cbx2">
                                     <span>
                                         <svg width="12px" height="9px" viewBox="0 0 12 9">
                                             <polyline points="1 5 4 8 11 1"></polyline>
@@ -82,49 +140,26 @@
                                     <span>To-do 1</span>
                                 </label>
                             </div>
-                            <div class="todo-item-actions">
-                                <button class="edit-item">
-                                    <iconify-icon icon="material-symbols:edit-note"></iconify-icon>
-                                </button>
-                                <button class="delete-item">
-                                    <iconify-icon icon="ic:round-delete-outline"></iconify-icon>
-                                </button>
-                                <button class="item-details">
-                                    <iconify-icon icon="mdi:dots-horizontal"></iconify-icon>
-                                </button>
+                        </div>
+                        <div class="todo-wrapper">
+                            <div class="todo-item">
+                                <input class="inp-cbx" id="cbx3" type="checkbox" style="display: none;">
+                                <label class="cbx" for="cbx3">
+                                    <span>
+                                        <svg width="12px" height="9px" viewBox="0 0 12 9">
+                                            <polyline points="1 5 4 8 11 1"></polyline>
+                                        </svg>
+                                    </span>
+                                    <span>To-do 1</span>
+                                </label>
                             </div>
                         </div>
                     </div>
-                    <div class="todo-wrapper">
-                        <div class="todo-item">
-                            <input class="inp-cbx" id="cbx2" type="checkbox" style="display: none;">
-                            <label class="cbx" for="cbx2">
-                                <span>
-                                    <svg width="12px" height="9px" viewBox="0 0 12 9">
-                                        <polyline points="1 5 4 8 11 1"></polyline>
-                                    </svg>
-                                </span>
-                                <span>To-do 1</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="todo-wrapper">
-                        <div class="todo-item">
-                            <input class="inp-cbx" id="cbx3" type="checkbox" style="display: none;">
-                            <label class="cbx" for="cbx3">
-                                <span>
-                                    <svg width="12px" height="9px" viewBox="0 0 12 9">
-                                        <polyline points="1 5 4 8 11 1"></polyline>
-                                    </svg>
-                                </span>
-                                <span>To-do 1</span>
-                            </label>
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </main>
-    <!-- </div> -->
+            </main>
+        </div>
+    </div>
+     
     <script src="bundle.js"></script>
 </body>
 </html>
