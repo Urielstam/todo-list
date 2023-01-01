@@ -58,7 +58,11 @@ const todoFactory = (title, desc, priority, dueDate, dateCreated) => {
 const btn = document.querySelector('.open-aside');
 btn.addEventListener('click', (e) => {
     const side = document.querySelector('.sidebar');
-    side.classList.toggle('is-visible')
+    if(side.style.width === "250px") {
+        side.style.width = "0";
+    } else {
+        side.style.width = "250px";
+    }
 
 })
 

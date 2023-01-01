@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+/* || GLOBAL STYLES */
 :root,
 :root.light {
     --accent-color: #03A696;
@@ -33,19 +35,24 @@ body {
     width: 100vw;
     height: 100vh;
     font-family: 'Open Sans', sans-serif;
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
+    display: grid;
+    grid-template-columns: auto 3fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    "header header"
+    "nav main";
 }
-
-
 
 a {
     color: inherit;
     text-decoration: none;
 }
 
-
+/* || HEADER */
 .header {
+    grid-area: header;
     color: white;
     height: 50px;
     box-sizing: border-box;
@@ -70,7 +77,6 @@ a {
     width: 24px;
     border-radius: 5px;
     font-size: 1.4rem;
-    /* align-self: baseline; */
 }
 
 .header button:hover {
@@ -84,7 +90,7 @@ a {
 }
 
 
-
+/* || TOGGLE DARK/LIGHT THEME */
 .toggle-theme input[type="checkbox"] {
 visibility: hidden;
 display: none;
@@ -154,24 +160,22 @@ box-shadow: inset -3px -2px 5px -2px var(--accent-color), inset -10px -4px 0 0 v
 }
 
 
-.content {
+/* .content {
     height: 100%;
     display: flex;
     justify-content: flex-end;
-}
+} */
 
-aside {
+
+/* || ASIDE */
+nav {
+    grid-area: nav;
     width: 250px;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: auto;
-    background-color: var(--aside-color);
-}
-
-
-.sidebar.is-visible  ~ .main {
+    overflow: auto;
+    overflow-x: hidden;
+    /* transition: all 1s; */
     transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
-    flex-basis: 0;
+    background-color: var(--aside-color);
 }
 
 .sidebar-content-nav {
@@ -224,19 +228,16 @@ aside {
     width: 13px;
     background-color: #b6b6b6;
     border-radius: 50%;
-    display: inline-block;
+    flex-shrink: 0;
 }
 
-
+/* || MAIN */
 .main {
-    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    grid-area: main;
     height: 100%;
     /* min-height: 0; */
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: 100%;
     background-color: var(--main-color);
 }
 
@@ -245,7 +246,7 @@ aside {
 }
 
 .main .add-todo {
-    width: 70%;
+    width: clamp(300px, 50%, 750px);
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -270,7 +271,7 @@ aside {
 
 .add-todo-btn:not(:disabled):hover:active {
     transform: scale(1.05) translateY(.125rem);
-  }
+}
 
 .add-todo:hover {
     background-color: var(--todo-btn-hover);
@@ -278,29 +279,29 @@ aside {
 
 .add-todo-btn:focus {
     outline: 0 solid transparent;
-  }
+}
   
-  .add-todo-btn:focus:before {
-    content: "";
-    left: calc(-1*.375rem);
-    pointer-events: none;
-    position: absolute;
-    top: calc(-1*.375rem);
-    transition: border-radius;
-    user-select: none;
-  }
-  
-  .add-todo-btn:focus:not(:focus-visible) {
-    outline: 0 solid transparent;
-  }
-  
-  .add-todo-btn:focus:not(:focus-visible):before {
-    border-width: 0;
-  }
-  
-  .add-todo-btn:not(:disabled):active {
-    transform: translateY(.125rem);
-  }
+.add-todo-btn:focus:before {
+content: "";
+left: calc(-1*.375rem);
+pointer-events: none;
+position: absolute;
+top: calc(-1*.375rem);
+transition: border-radius;
+user-select: none;
+}
+
+.add-todo-btn:focus:not(:focus-visible) {
+outline: 0 solid transparent;
+}
+
+.add-todo-btn:focus:not(:focus-visible):before {
+border-width: 0;
+}
+
+.add-todo-btn:not(:disabled):active {
+transform: translateY(.125rem);
+}
 
 
 .todo-container {
@@ -329,6 +330,7 @@ aside {
     border-radius: 5px;
     box-shadow: 2px 1px 2px rgb(var(--todo-hover), 0.15);
     transition: all 0.3s ease-in-out;
+    border-left: 3px solid green;
 }
 
 .todo-wrapper:after {
