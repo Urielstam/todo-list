@@ -11,16 +11,16 @@
     <div class="overlay-create-new">
         <form action="" class="create-new">
             <div class="create-new-main">
-                <input id="name" type="text" placeholder="Task name">
+                <input required id="name" type="text" placeholder="Task name">
                 <input id="description" type="text" placeholder="Description">
             </div>
             <div class="create-new-options">
                 <div class="create-new-options-main">
-                    <button action="/" class="form-btn due-date">
+                    <button type="button" action="/" class="form-btn due-date">
                         <iconify-icon icon="system-uicons:calendar-last-day"></iconify-icon>
                         <div>Date</div>
                     </button>
-                    <button action="/" class="form-btn task-project">Project</button>
+                    <button type="button" action="/" class="form-btn task-project">Project</button>
                 </div>
                 <div class="create-new-options-extra">
                     <div class="priority">
@@ -32,8 +32,8 @@
             </div>
             <div class="create-new-divider"></div>
             <div class="create-new-actions">
-                <button action="/" class="form-btn cancel-form-btn">Cancel</button>
-                <button action="/" class="form-btn add-task">Add task</button>
+                <button type="button" action="/" class="form-btn cancel-form-btn">Cancel</button>
+                <button type="submit" action="/" class="form-btn add-task">Add task</button>
             </div>
         </form>
     </div>
@@ -102,17 +102,17 @@
                         <p>Add a Task</p>
                     </div>
                     <div class="todo-list">
-                        <div class="todo-wrapper">
+                        <div id="todo0" class="todo-wrapper">
                             <div class="todo-item">
                                 <div class="todo-item-main">
-                                    <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;">
-                                    <label class="cbx" for="cbx">
+                                    <input class="inp-cbx" id="cbx0" type="checkbox" style="display: none;">
+                                    <label class="cbx" for="cbx0">
                                         <span>
                                             <svg width="12px" height="9px" viewBox="0 0 12 9">
                                                 <polyline points="1 5 4 8 11 1"></polyline>
                                             </svg>
                                         </span>
-                                        <span>To-do 1</span>
+                                        <span class="task-title">To-do 1</span>
                                     </label>
                                 </div>
                                 <div class="todo-item-actions">
@@ -126,32 +126,6 @@
                                         <iconify-icon icon="mdi:dots-horizontal"></iconify-icon>
                                     </button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="todo-wrapper">
-                            <div class="todo-item">
-                                <input class="inp-cbx" id="cbx2" type="checkbox" style="display: none;">
-                                <label class="cbx" for="cbx2">
-                                    <span>
-                                        <svg width="12px" height="9px" viewBox="0 0 12 9">
-                                            <polyline points="1 5 4 8 11 1"></polyline>
-                                        </svg>
-                                    </span>
-                                    <span>To-do 1</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="todo-wrapper">
-                            <div class="todo-item">
-                                <input class="inp-cbx" id="cbx3" type="checkbox" style="display: none;">
-                                <label class="cbx" for="cbx3">
-                                    <span>
-                                        <svg width="12px" height="9px" viewBox="0 0 12 9">
-                                            <polyline points="1 5 4 8 11 1"></polyline>
-                                        </svg>
-                                    </span>
-                                    <span>To-do 1</span>
-                                </label>
                             </div>
                         </div>
                     </div>
