@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="overlay-create-new">
-        <form action="" class="create-new">
+        <form class="create-new">
             <div class="create-new-main">
                 <input required id="name" type="text" placeholder="Task name">
                 <input id="description" type="text" placeholder="Description">
@@ -24,16 +24,25 @@
                 </div>
                 <div class="create-new-options-extra">
                     <div class="priority">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
+                        <p>Priority:</p>
+                        <div class="priority-radios">
+                            <label class="form-radio">
+                                <input required id="priority-low" type="radio" name="radio" />
+                            </label>
+                            <label class="form-radio">
+                                <input id="priority-medium"  type="radio" name="radio" />
+                            </label>
+                            <label class="form-radio">
+                                <input id="priority-high" type="radio" name="radio" />
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="create-new-divider"></div>
             <div class="create-new-actions">
-                <button type="button" action="/" class="form-btn cancel-form-btn">Cancel</button>
-                <button type="submit" action="/" class="form-btn add-task">Add task</button>
+                <button type="button" class="form-btn cancel-form-btn">Cancel</button>
+                <button type="submit" class="form-btn add-task">Add task</button>
             </div>
         </form>
     </div>
@@ -102,7 +111,7 @@
                         <p>Add a Task</p>
                     </div>
                     <div class="todo-list">
-                        <div id="todo0" class="todo-wrapper">
+                        <div id="todo0" class="todo-wrapper priority-low">
                             <div class="todo-item">
                                 <div class="todo-item-main">
                                     <input class="inp-cbx" id="cbx0" type="checkbox" style="display: none;">
@@ -116,14 +125,14 @@
                                     </label>
                                 </div>
                                 <div class="todo-item-actions">
+                                    <button class="item-details">
+                                        Details
+                                    </button>
                                     <button class="edit-item">
                                         <iconify-icon icon="ph:note-pencil-bold"></iconify-icon>
                                     </button>
                                     <button class="delete-item">
                                         <iconify-icon icon="ic:round-delete-outline"></iconify-icon>
-                                    </button>
-                                    <button class="item-details">
-                                        <iconify-icon icon="mdi:dots-horizontal"></iconify-icon>
                                     </button>
                                 </div>
                             </div>
@@ -133,7 +142,6 @@
             </main>
         </div>
     </div>
-     
-    <script src="bundle.js"></script>
+    <script src="bundle.js"></script>/
 </body>
 </html>
