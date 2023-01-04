@@ -9,7 +9,11 @@
     --main-color: #ECE8DD;
     --text-color: 0, 0, 0;
     --todo-hover: 0, 0, 0;
-    --todo-btn-hover: #e0dcd1
+    --todo-btn-hover: #e0dcd1;
+    --priority-low: #36AE7C;
+    --priority-medium: #FF6E31;
+    --priority-high: #EB5353;
+
 }
 :root.dark {
      --aside-color: #272727;
@@ -122,27 +126,85 @@ body {
 }
 
 .priority {
+    height: 30px;
     display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.priority-radios {
+    display: flex;
+    align-items: center;
     gap: 5px;
+    /* cursor: pointer; */
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    appearance: none;
+    /* For iOS < 15 to remove gradient background */
+    background-color: #fff;
+    /* Not removed via appearance */
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid currentColor;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
     cursor: pointer;
 }
 
-.priority div:nth-child(1) {
-    background-color: #36AE7C;
+input[type="radio"]::before {
+content: "";
+width: 0.65em;
+height: 0.65em;
+border-radius: 50%;
+transform: scale(0);
+transition: 120ms transform ease-in-out;
+box-shadow: inset 1em 1em var(--accent-color);
 }
 
-.priority div:nth-child(2) {
-    background-color: #F9D923;
+input[type="radio"]:checked::before {
+transform: scale(1);
 }
 
-.priority div:nth-child(3) {
-    background-color: #EB5353;
+
+
+#priority-low {
+    border: 0.15em solid var(--priority-low);
+}
+
+#priority-low::before {
+    box-shadow: inset 1em 1em var(--priority-low);
+}
+
+#priority-medium {
+    border: 0.15em solid var(--priority-medium);
+}
+
+#priority-medium::before {
+    box-shadow: inset 1em 1em var(--priority-medium);
+}
+
+#priority-high {
+    border: 0.15em solid var(--priority-high);
+}
+
+#priority-high::before {
+    box-shadow: inset 1em 1em var(--priority-high);
 }
 
 .create-new-options-main, .create-new-actions {
     display: flex;
     gap: 0.8rem;
 }
+
+.create-new-options-main {
+    align-self: flex-end;
+} 
 
 .create-new-options button,  .create-new-actions button {
     display: flex;
@@ -302,6 +364,7 @@ nav {
     transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
     background-color: var(--aside-color);
 }
+
 
 .sidebar-content-nav {
     display: flex;
@@ -464,7 +527,8 @@ transform: translateY(.125rem);
     gap: 1rem;
     padding: 1rem;
     overflow-y: auto;
-    scrollbar-gutter: stable;
+    overflow-x: hidden;
+    /* scrollbar-gutter: stable; */
     /* scrollbar-color: #6969dd #e0e0e0;
     scrollbar-width: thin; */
 
@@ -495,7 +559,18 @@ transform: translateY(.125rem);
     border-radius: 5px;
     box-shadow: 2px 1px 2px rgb(var(--todo-hover), 0.15);
     transition: all 0.3s ease-in-out;
-    border-left: 3px solid green;
+}
+
+.todo-wrapper.priority-low {
+    border-left: 3px solid var(--priority-low);
+}
+
+.todo-wrapper.priority-medium {
+    border-left: 3px solid var(--priority-medium);
+}
+
+.todo-wrapper.priority-high {
+    border-left: 3px solid var(--priority-high);
 }
 
 .todo-wrapper:after {
@@ -524,20 +599,33 @@ opacity: 1;
 .todo-item-actions {
     display: flex;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .todo-item-actions button {
     color: var(--text-color);
     background: none;
-    height: 25px;
+    height: 19px;
     width: 25px;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     cursor: pointer;
 }
 
 .todo-item-actions button:hover {
     background: var(--todo-btn-hover);
+}
+
+.todo-item-actions button.item-details {
+    font-size: 0.625rem;
+    font-weight: 700;
+    width: 45px;
+    border: 1px solid rgb(105, 105, 105);
+}
+
+.todo-item-actions button.item-details:hover {
+    background-color: var(--accent-color);
+    color: white;
 }
 
 .todo-item .cbx {

@@ -1,10 +1,9 @@
 import './style.css';
-import { createNew, taskFormDetailAggregator, displayAllTasks } from './create-task';
-import { openCloseSidebarModule, toggleThemeModule, formUtilsModule } from './theme-layout-utils';
+import { createNew, displayAllTasks } from './create-task';
+import { openCloseSidebarModule, toggleThemeModule } from './theme-layout-utils';
 
-openCloseSidebarModule;
-toggleThemeModule;
-formUtilsModule;
-taskFormDetailAggregator();
 displayAllTasks()
+// openCloseSidebarModule;
+// toggleThemeModule;
+// formUtilsModule;
 

@@ -13,11 +13,6 @@ const exampleTodo = {
 const taskList = (() => {
 
     let _defaultTaskList = [exampleTodo, 
-                            exampleTodo, 
-                            exampleTodo,
-                            exampleTodo,
-                            exampleTodo,
-                            exampleTodo
                             ];
 
     const getDefaultTaskList = () => {
@@ -79,27 +74,7 @@ export const displayAllTasks = () => {
     }
 }
 
-export const taskFormDetailAggregator = () => {
-    let title;
-    let desc;
-    let priority;
-    let dueDate;
 
-    const form = document.querySelector('form');
-    const addTaskBtn = document.querySelector('button[class="form-btn add-task"]');
-    const formTitle = document.querySelector('input[id="name"]');
-    const formDesc = document.querySelector('input[id="description"]');
+// When form submitted - retrieve the values of inputs - and 
+// pass then into createTask()
 
-    addTaskBtn.addEventListener('click', (e) => {
-        title = formTitle.value;
-        desc = formDesc.value;
-        console.log(title + desc);
-        createNewTask(title);
-    })
-
-    return {
-        title,
-        desc,
-        priority
-    }
-}
