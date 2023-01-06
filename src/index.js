@@ -1,8 +1,10 @@
 import './style.css';
 import { createNew, displayAllTasks } from './create-task';
-import { openCloseSidebarModule, toggleThemeModule } from './theme-layout-utils';
+import { openCloseSidebarModule, toggleThemeModule,  } from './theme-layout-utils';
+import { formUtilsModule } from "./display-content";
 
-displayAllTasks()
+displayAllTasks();
+// formUtilsModule.editItem();
 // openCloseSidebarModule;
 // toggleThemeModule;
 // formUtilsModule;

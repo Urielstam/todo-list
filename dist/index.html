@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="overlay-create-new">
-        <form class="create-new">
+        <form class="create-new" autocomplete="off">
             <div class="create-new-main">
                 <input required id="name" type="text" placeholder="Task name">
                 <input id="description" type="text" placeholder="Description">
@@ -46,7 +46,44 @@
             </div>
         </form>
     </div>
-     
+    <div class="overlay-edit">
+        <form class="edit" autocomplete="off">
+            <div class="edit-main">
+                <input required id="name-edit" type="text" placeholder="Task name">
+                <input id="description-edit" type="text" placeholder="Description">
+            </div>
+            <div class="edit-options">
+                <div class="edit-options-main">
+                    <button type="button" action="/" class="form-btn due-date">
+                        <iconify-icon icon="system-uicons:calendar-last-day"></iconify-icon>
+                        <div>Date</div>
+                    </button>
+                    <button type="button" action="/" class="form-btn task-project">Project</button>
+                </div>
+                <div class="edit-options-extra">
+                    <div class="priority">
+                        <p>Priority:</p>
+                        <div class="priority-radios">
+                            <label class="form-radio">
+                                <input required id="priority-low-edit" type="radio" name="radio-edit" />
+                            </label>
+                            <label class="form-radio">
+                                <input id="priority-medium-edit"  type="radio" name="radio-edit" />
+                            </label>
+                            <label class="form-radio">
+                                <input id="priority-high-edit" type="radio" name="radio-edit" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="edit-divider"></div>
+            <div class="edit-actions">
+                <button type="button" class="form-btn cancel-form-btn">Cancel</button>
+                <button type="submit" class="form-btn edit-task">Edit task</button>
+            </div>
+        </form>
+    </div>
     <div class="contents">
         <div class="header">
             <div class="header-nav">
@@ -111,7 +148,7 @@
                         <p>Add a Task</p>
                     </div>
                     <div class="todo-list">
-                        <div id="todo0" class="todo-wrapper priority-low">
+                        <div id="todo0" class="todo-wrapper">
                             <div class="todo-item">
                                 <div class="todo-item-main">
                                     <input class="inp-cbx" id="cbx0" type="checkbox" style="display: none;">

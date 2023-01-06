@@ -39,13 +39,13 @@ body {
     width: 100vw;
     height: 100vh;
     font-family: 'Open Sans', sans-serif;
-   
+    overflow: hidden; 
 }
 
 
 /* FORM OVERLAY FORM */
 
-.overlay-create-new {
+.overlay-create-new, .overlay-edit {
     z-index: 2;
     position: fixed;
     top: 0;
@@ -64,7 +64,7 @@ body {
     -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
     transition: opacity 0.3s 0s, visibility 0s 0.3s;
   }
-  .overlay-create-new.is-visible {
+  .is-visible {
     opacity: 1;
     visibility: visible;
     /* display: flex; */
@@ -73,7 +73,7 @@ body {
     transition: opacity 0.3s 0s, visibility 0s 0s;
   }
   
-  form.create-new {
+  form.create-new, form.edit {
     
     background-color: var(--aside-color);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -101,25 +101,25 @@ body {
     transition-duration: 0.3s;
   }
 
-.create-new-main {
+.create-new-main, .edit-main {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.create-new-main input {
+.create-new-main input, .edit-main input {
     outline: none;
     font-size: 0.8rem;
     color: var(--text-color);
     background-color: var(--aside-color);
 }
 
-.create-new-main input:nth-child(1) {
+.create-new-main input:nth-child(1), .edit-main input:nth-child(1) {
     font-size: 1.2rem;
     font-weight: 700;
 }
 
-.create-new-options {
+.create-new-options, .edit-options {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -173,40 +173,46 @@ transform: scale(1);
 
 
 
-#priority-low {
+#priority-low, #priority-low-edit {
     border: 0.15em solid var(--priority-low);
 }
 
-#priority-low::before {
+#priority-low::before, #priority-low-edit::before {
     box-shadow: inset 1em 1em var(--priority-low);
 }
 
-#priority-medium {
+#priority-medium, #priority-medium-edit {
     border: 0.15em solid var(--priority-medium);
 }
 
-#priority-medium::before {
+#priority-medium::before, #priority-medium-edit::before {
     box-shadow: inset 1em 1em var(--priority-medium);
 }
 
-#priority-high {
+#priority-high, #priority-high-edit {
     border: 0.15em solid var(--priority-high);
 }
 
-#priority-high::before {
+#priority-high::before, #priority-high-edit::before {
     box-shadow: inset 1em 1em var(--priority-high);
 }
 
-.create-new-options-main, .create-new-actions {
+.create-new-options-main,
+.create-new-actions,
+.edit-options-main,
+.edit-actions {
     display: flex;
     gap: 0.8rem;
 }
 
-.create-new-options-main {
+.create-new-options-main, .edit-options-main {
     align-self: flex-end;
 } 
 
-.create-new-options button,  .create-new-actions button {
+.create-new-options button,  
+.create-new-actions button,
+.edit-options button,  
+.edit-actions button {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -216,13 +222,13 @@ transform: scale(1);
     cursor: pointer;
 }
 
-.create-new-divider {
+.create-new-divider, .edit-divider {
     width: 100%;
     height: 1px;
     background-color: #3b3b3b5b;
 }
 
-.create-new-actions {
+.create-new-actions, .edit-actions {
     align-self: flex-end;
     font-weight: 600;
 }

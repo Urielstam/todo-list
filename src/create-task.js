@@ -1,19 +1,25 @@
-import { formUtilsModule, displayNewTask } from "./theme-layout-utils";
+import { formUtilsModule, displayNewTask } from "./display-content";
 
 const exampleTodo = {
-    title: "Exanple Todo",
+    title: "Example Todo",
     desc: "This is an example of a todo",
-    priority: "low",
+    priority: "priority-low",
+    duedate: "1/01/23"
+}
+
+const exampleTodo2 = {
+    title: "Example Todo 2",
+    desc: "This is the second example of a todo",
+    priority: "priority-medium",
     duedate: "1/01/23"
 }
 
 // TODO Create todoList array object to store all todos
 // TODO Create todo items dynamically with factory functions
 
-const taskList = (() => {
+export const taskList = (() => {
 
-    let _defaultTaskList = [exampleTodo, 
-                            ];
+    let _defaultTaskList = [exampleTodo, exampleTodo2];
 
     const getDefaultTaskList = () => {
         return _defaultTaskList;
@@ -63,14 +69,14 @@ const taskFactory = (title, desc, priority, dueDate) => {
 export const createNewTask = (title, desc, priority, dueDate) => {
     let newTask = taskFactory(title, desc, priority, dueDate);
     taskList.addTask(newTask);
-    displayNewTask(title);
+    displayNewTask(title, desc, priority);
     console.log(taskList.getDefaultTaskList());
 }
 
 export const displayAllTasks = () => {
     let todoArr = taskList.getDefaultTaskList();
-    for (let todo in todoArr) {
-        displayNewTask(exampleTodo.title);
+    for (let todo of todoArr) {
+        displayNewTask(todo.title, todo.priority);
     }
 }
 
