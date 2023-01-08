@@ -16,11 +16,10 @@
             </div>
             <div class="create-new-options">
                 <div class="create-new-options-main">
-                    <button type="button" action="/" class="form-btn due-date">
-                        <iconify-icon icon="system-uicons:calendar-last-day"></iconify-icon>
-                        <div>Date</div>
-                    </button>
-                    <button type="button" action="/" class="form-btn task-project">Project</button>
+                    <input type="date" name="due-date" id="new-due-date" required>
+                    <!-- <label class="form-btn due-date" for="new-due-date">
+                    </label> -->
+                    <!-- <button type="button" action="/" class="form-btn task-project">Project</button> -->
                 </div>
                 <div class="create-new-options-extra">
                     <div class="priority">
@@ -54,11 +53,8 @@
             </div>
             <div class="edit-options">
                 <div class="edit-options-main">
-                    <button type="button" action="/" class="form-btn due-date">
-                        <iconify-icon icon="system-uicons:calendar-last-day"></iconify-icon>
-                        <div>Date</div>
-                    </button>
-                    <button type="button" action="/" class="form-btn task-project">Project</button>
+                    <input type="date" name="due-date" id="edit-due-date">
+                    <!-- <button type="button" action="/" class="form-btn task-project">Project</button> -->
                 </div>
                 <div class="edit-options-extra">
                     <div class="priority">
@@ -104,7 +100,7 @@
                 </div>
             </div>
         </div>
-        <nav class="sidebar is-visible">
+        <nav class="sidebar">
             <div class="sidebar-content-nav">
                 <div class="side-nav">
                     <iconify-icon icon="ic:baseline-calendar-month"></iconify-icon>
@@ -162,14 +158,15 @@
                                     </label>
                                 </div>
                                 <div class="todo-item-actions">
-                                    <button class="item-details">
-                                        Details
-                                    </button>
+                                    <div class="todo-item-due-date">Today</div>
                                     <button class="edit-item">
                                         <iconify-icon icon="ph:note-pencil-bold"></iconify-icon>
                                     </button>
                                     <button class="delete-item">
                                         <iconify-icon icon="ic:round-delete-outline"></iconify-icon>
+                                    </button>
+                                    <button class="item-details">
+                                        Details
                                     </button>
                                 </div>
                             </div>
