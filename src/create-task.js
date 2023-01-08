@@ -4,14 +4,14 @@ const exampleTodo = {
     title: "Example Todo",
     desc: "This is an example of a todo",
     priority: "priority-low",
-    duedate: "1/01/23"
+    dueDate: "2023-01-08"
 }
 
 const exampleTodo2 = {
     title: "Example Todo 2",
     desc: "This is the second example of a todo",
     priority: "priority-medium",
-    duedate: "1/01/23"
+    dueDate: "2023-01-08"
 }
 
 // TODO Create todoList array object to store all todos
@@ -69,14 +69,14 @@ const taskFactory = (title, desc, priority, dueDate) => {
 export const createNewTask = (title, desc, priority, dueDate) => {
     let newTask = taskFactory(title, desc, priority, dueDate);
     taskList.addTask(newTask);
-    displayNewTask(title, desc, priority);
+    displayNewTask(title, desc, priority, dueDate);
     console.log(taskList.getDefaultTaskList());
 }
 
 export const displayAllTasks = () => {
     let todoArr = taskList.getDefaultTaskList();
     for (let todo of todoArr) {
-        displayNewTask(todo.title, todo.priority);
+        displayNewTask(todo.title, todo.desc, todo.priority, todo.dueDate);
     }
 }
 

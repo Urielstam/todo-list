@@ -3,7 +3,7 @@ import { createNewTask, taskList } from "./create-task";
 
 const todoWrapper = document.getElementById('todo0');
 
-export const displayNewTask = (title, desc, priority) => {
+export const displayNewTask = (title, desc, priority, date) => {
     const todoList = document.querySelector('.todo-list');
     let num = Number((todoList.lastElementChild.id).at(-1));
     const todoClone = todoWrapper.cloneNode(true);
@@ -12,6 +12,7 @@ export const displayNewTask = (title, desc, priority) => {
     const checkboxLabel = todoClone.firstElementChild.firstElementChild.lastElementChild;
     const todoActions = todoClone.firstElementChild.lastElementChild.children;
     const editBtn = todoActions[1];
+    const dueDate = todoActions[0];
     
 
     let inputId = Number((todoList.lastElementChild.firstElementChild.firstElementChild.firstElementChild.id).at(-1));
@@ -33,6 +34,7 @@ export const displayNewTask = (title, desc, priority) => {
     checkbox.id = "cbx" + (inputId + 1);
     
     todoTitle.innerText = title;
+    dueDate.innerText = date;
     let description = taskList.getDefaultTaskList()[inputId].desc
     
     editBtn.addEventListener('click', (e) => {
@@ -78,9 +80,11 @@ export const formUtilsModule = (() => {
     
     const formTitle = document.querySelector('input[id="name"]');
     const formDesc = document.querySelector('input[id="description"]');
+    const formDate = document.querySelector('#new-due-date');
 
     const editFormTitle = document.querySelector('input[id="name-edit"]');
     const editFormDesc = document.querySelector('input[id="description-edit"]');
+    const editFormDate = document.querySelector('#edit-due-date')
     const editRadios = document.querySelectorAll('input[name="radio-edit"]');
     console.log(editRadios)
     
@@ -105,11 +109,12 @@ export const formUtilsModule = (() => {
     const submitForm = () => {
         let title = formTitle.value;
         let desc = formDesc.value;
+        let dueDate = formDate.value;
         let priority = setPriority(newRadios);
         
         if(title) {
-            console.log(title + desc);
-            createNewTask(title, desc, priority);
+            console.log(title + desc + dueDate);
+            createNewTask(title, desc, priority, dueDate);
         }
     }
 
@@ -122,8 +127,10 @@ export const formUtilsModule = (() => {
         
         let currentEditItem = document.getElementById(`todo${id}`);
         let currentEditItemTitle = currentEditItem.firstElementChild.firstElementChild.lastElementChild.lastElementChild;
-
+        let currentEditItemDate = currentEditItem.firstElementChild.lastElementChild.firstElementChild;
         task.title = editFormTitle.value;
+        task.dueDate = editFormDate.value;
+        currentEditItemDate.innerText = task.dueDate;
         currentEditItemTitle.innerText = task.title;
         task.desc = editFormDesc.value;
         task.priority = setPriority(editRadios);
@@ -135,22 +142,22 @@ export const formUtilsModule = (() => {
 
     }
     
-    const editItem = (el, elId, elTitle, elDesc, priority) => {
+    const editItem = (el, elId, elTitle, elDesc, priority, dueDate) => {
         currentId = elId;
         console.log(currentId);
-        editItemDetailAggregator(el, elId, elTitle, elDesc, priority);
+        editItemDetailAggregator(el, elId, elTitle, elDesc, priority, dueDate);
         openEditForm();
     }
 
-    const editItemDetailAggregator = (el, elId, elTitle, elDesc, priority) => {
+    const editItemDetailAggregator = (el, elId, elTitle, elDesc, priority, dueDate) => {
         if(el.target.tagName.toLowerCase() === 'iconify-icon') {
             // let parentCardEl = el.target.parentNode.parentNode.parentNode.parentNode;
             // console.log(el)
             let elTask = taskList.getDefaultTaskList()[elId - 1];
 
             editFormTitle.value = elTitle;
-            editFormDesc.value = elTask.desc
-
+            editFormDesc.value = elTask.desc;
+            editFormDate.value = elTask.dueDate;
 
             priority = elTask.priority;
             console.log(priority)

@@ -125,6 +125,10 @@ body {
     justify-content: space-between;
 }
 
+
+
+
+
 .priority {
     height: 30px;
     display: flex;
@@ -220,6 +224,33 @@ transform: scale(1);
     padding: 0.4rem 0.6rem;
     border-radius: 5px;
     cursor: pointer;
+}
+
+/* .due-date {
+    
+    gap: 5px;
+} */
+
+#new-due-date, #edit-due-date {
+    display: inline-flex;
+    align-items: flex-end;
+    font-size: 0.8rem;
+    outline: none;
+    background-color: transparent;
+    appearance: none;
+    text-transform: uppercase;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    padding: 0.3rem 0.5rem;
+    user-select: none;
+}
+
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+    background-color: var(--accent-color);
+    color: white;
+    outline: none;
 }
 
 .create-new-divider, .edit-divider {
@@ -518,7 +549,7 @@ transform: translateY(.125rem);
     flex-direction: column;
     gap: 2rem;
     box-sizing: border-box;
-    padding: 4rem 0 0 6rem;
+    padding: 4rem 0 0 2rem;
 }
 
 .todo-container h1 {
@@ -560,7 +591,7 @@ transform: translateY(.125rem);
 }
 
 .todo-wrapper {
-    width: clamp(300px, 50%, 750px);
+    width: clamp(400px, 50%, 750px);
     padding: 1rem 1rem 1rem 1rem;
     border-radius: 5px;
     box-shadow: 2px 1px 2px rgb(var(--todo-hover), 0.15);
@@ -620,6 +651,11 @@ opacity: 1;
 
 .todo-item-actions button:hover {
     background: var(--todo-btn-hover);
+}
+
+.todo-item-due-date {
+    font-weight: 500;
+    font-size: 0.8rem;
 }
 
 .todo-item-actions button.item-details {
