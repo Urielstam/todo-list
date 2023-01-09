@@ -45,7 +45,7 @@ body {
 
 /* FORM OVERLAY FORM */
 
-.overlay-create-new, .overlay-edit {
+.overlay-create-new, .overlay-edit, .overlay-view-details {
     z-index: 2;
     position: fixed;
     top: 0;
@@ -73,7 +73,7 @@ body {
     transition: opacity 0.3s 0s, visibility 0s 0s;
   }
   
-  form.create-new, form.edit {
+  form.create-new, form.edit, .view-details-container {
     
     background-color: var(--aside-color);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -262,6 +262,30 @@ input::-webkit-datetime-edit-year-field:focus {
 .create-new-actions, .edit-actions {
     align-self: flex-end;
     font-weight: 600;
+}
+
+.close-view-details {
+    position: absolute;
+    font-size: 1.2rem;
+    right: 14px;
+    top: 14px;
+    cursor: pointer;
+}
+
+.view-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.view-title, 
+.view-desc, 
+.view-priority, 
+.view-due-date,
+.view-date-create {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 /* || CONTENTS */
@@ -504,11 +528,15 @@ nav {
     transition: transform .2s;
 }
 
-.add-todo-btn:not(:disabled):hover, .add-project:not(:disabled):hover {
+.add-todo-btn:not(:disabled):hover,
+.add-project:not(:disabled):hover,
+.close-view-details:not(:disabled):hover {
     transform: scale(1.05);
 }
 
-.add-todo-btn:not(:disabled):hover:active, .add-project:not(:disabled):hover:active {
+.add-todo-btn:not(:disabled):hover:active,
+.add-project:not(:disabled):hover:active,
+.close-view-details:not(:disabled):hover:active {
     transform: scale(1.05) translateY(.125rem);
 }
 
@@ -516,11 +544,15 @@ nav {
     background-color: var(--todo-btn-hover);
 }
 
-.add-todo-btn:focus, .add-project:focus {
+.add-todo-btn:focus,
+.add-project:focus,
+.close-view-details:focus {
     outline: 0 solid transparent;
 }
   
-.add-todo-btn:focus:before, .add-project:focus:before {
+.add-todo-btn:focus:before,
+.add-project:focus:before,
+.close-view-details:focus:before {
 content: "";
 left: calc(-1*.375rem);
 pointer-events: none;
@@ -530,15 +562,21 @@ transition: border-radius;
 user-select: none;
 }
 
-.add-todo-btn:focus:not(:focus-visible), .add-project:focus:not(:focus-visible) {
+.add-todo-btn:focus:not(:focus-visible),
+.add-project:focus:not(:focus-visible),
+.close-view-details:focus:not(:focus-visible) {
 outline: 0 solid transparent;
 }
 
-.add-todo-btn:focus:not(:focus-visible):before, .add-project:focus:not(:focus-visible):before {
+.add-todo-btn:focus:not(:focus-visible):before,
+.add-project:focus:not(:focus-visible):before,
+.close-view-details:focus:not(:focus-visible):before {
 border-width: 0;
 }
 
-.add-todo-btn:not(:disabled):active, .add-project:not(:disabled):active {
+.add-todo-btn:not(:disabled):active,
+.add-project:not(:disabled):active,
+.close-view-details:not(:disabled):active {
 transform: translateY(.125rem);
 }
 

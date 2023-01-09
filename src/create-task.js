@@ -4,14 +4,16 @@ const exampleTodo = {
     title: "Example Todo",
     desc: "This is an example of a todo",
     priority: "priority-low",
-    dueDate: "2023-01-08"
+    dueDate: "2023-01-08",
+    dateCreated: undefined
 }
 
 const exampleTodo2 = {
     title: "Example Todo 2",
     desc: "This is the second example of a todo",
     priority: "priority-medium",
-    dueDate: "2023-01-08"
+    dueDate: "2023-01-08",
+    dateCreated: undefined
 }
 
 // TODO Create todoList array object to store all todos
@@ -53,21 +55,23 @@ const addSubTask = () => {
     // Add sub tasks
 }
 
-const dateCreated = () => {
-    // Get current date
-}
+// const dateCreated = () => {
+//     // Get current date
+// }
 
-const taskFactory = (title, desc, priority, dueDate) => {
+const taskFactory = (title, desc, priority, dueDate, dateCreated) => {
     return {
         title,
         desc,
         priority,
-        dueDate
+        dueDate,
+        dateCreated
     };
 }
 
-export const createNewTask = (title, desc, priority, dueDate) => {
-    let newTask = taskFactory(title, desc, priority, dueDate);
+export const createNewTask = (title, desc, priority, dueDate, dateCreated) => {
+    dateCreated = new Date();
+    let newTask = taskFactory(title, desc, priority, dueDate, dateCreated);
     taskList.addTask(newTask);
     displayNewTask(title, desc, priority, dueDate);
     console.log(taskList.getDefaultTaskList());
