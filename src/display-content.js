@@ -43,11 +43,11 @@ export const displayNewTask = (title, desc, priority, date) => {
     let description = taskList.getDefaultTaskList()[inputId].desc
     
     editBtn.addEventListener('click', (e) => {
-        formUtilsModule.editItem(e,  (inputId + 1), todoTitle.innerText, description, priority)
+        formUtilsModule.editItem(e,  (inputId + 1), todoTitle.innerText, description, priority, date)
     })
 
     viewDetailsBtn.addEventListener('click', (e) => {
-        formUtilsModule.openViewDetails();
+        formUtilsModule.viewDetails(e, (inputId + 1));
     })
 
     todoWrapper.parentNode.appendChild(todoClone);
@@ -102,8 +102,14 @@ export const formUtilsModule = (() => {
     const editFormDesc = document.querySelector('input[id="description-edit"]');
     const editFormDate = document.querySelector('#edit-due-date')
     const editRadios = document.querySelectorAll('input[name="radio-edit"]');
-    const veiwDetailsOverlay = document.querySelector('.overlay-view-details');
     console.log(editRadios)
+
+    const veiwDetailsOverlay = document.querySelector('.overlay-view-details');
+    const viewTitle = document.querySelector('.view-title');
+    const viewDesc = document.querySelector('.view-desc');
+    const viewPriority = document.querySelector('.view-priority');
+    const viewDueDate = document.querySelector('.view-due-date');
+    const viewDateCreated = document.querySelector('.view-date-created');
     
     const openNewForm = () => {
         newAddOverlay.classList.add('is-visible');
@@ -143,10 +149,11 @@ export const formUtilsModule = (() => {
         }
     }
 
-    let currentId;
+    let currentEditId;
+    let currentViewId;
 
     const editItemForm = (id) => {
-        id  = currentId;
+        id  = currentEditId;
 
         let task = taskList.getDefaultTaskList()[id - 1];
         
@@ -172,8 +179,8 @@ export const formUtilsModule = (() => {
     }
     
     const editItem = (el, elId, elTitle, elDesc, priority, dueDate) => {
-        currentId = elId;
-        console.log(currentId);
+        currentEditId = elId;
+        console.log(currentEditId);
         editItemDetailAggregator(el, elId, elTitle, elDesc, priority, dueDate);
         openEditForm();
     }
@@ -193,6 +200,24 @@ export const formUtilsModule = (() => {
             checkRadio(priority);
             
         }
+    }
+
+    const viewDetails =  (viewEl, elViewId) => {
+        currentViewId = elViewId;
+        viewDetailsAggregator(viewEl, elViewId);
+        openViewDetails();
+    }
+
+    const viewDetailsAggregator = (viewEl, elViewId) => {
+        let elViewTask = taskList.getDefaultTaskList()[elViewId - 1];
+
+        let formattedDueDate = formatDueDate(elViewTask.dueDate)
+        let formattedDateCreated = formatDateCreated(elViewTask.dateCreated)
+            viewTitle.innerText = elViewTask.title;
+            viewDesc.innerText = elViewTask.desc;
+            viewPriority.innerText = elViewTask.priority;
+            viewDueDate.innerText = formattedDueDate;
+            viewDateCreated.innerText = formattedDateCreated;
     }
 
     const checkRadio = (priority) => {
@@ -249,18 +274,27 @@ export const formUtilsModule = (() => {
 
     const dateCreated = () => {
         const newDate = new Date();
-        const newDay = format(newDate, 'd');
-        const newMonth = format(newDate, 'MMMM');
-        const newYear = format(newDate, 'yyyy');
-        const newHour = getHours(newDate);
-        const newMinutes = format(newDate, 'mm'); 
-        const newNoonMid = format(newDate, 'aaa');
+        console.log(newDate)
+        return newDate;
+    }
 
-        const formattedDateCreated = `${newMonth} ${newDay} ${newYear} ${newHour}:${newMinutes}${newNoonMid}`;
-        console.log(formattedDateCreated)
+    const formatDateCreated = (newDate) => {
+        let formattedDateCreated;
+        if (newDate) {
+            const newDay = format(newDate, 'd');
+            const newMonth = format(newDate, 'MMMM');
+            const newYear = format(newDate, 'yyyy');
+            const newHour = getHours(newDate);
+            const newMinutes = format(newDate, 'mm'); 
+            const newNoonMid = format(newDate, 'aaa');
+    
+            formattedDateCreated = `${newMonth} ${newDay} ${newYear} at ${newHour}:${newMinutes}${newNoonMid}`;
+            console.log(formattedDateCreated)
+        } else {
+            formattedDateCreated = undefined;
+        }
         return formattedDateCreated;
     }
-    
 
     form.addEventListener('submit', (e) => {
         e.preventDefault()
@@ -277,6 +311,6 @@ export const formUtilsModule = (() => {
     return {
         setPriority: setPriority,
         editItem: editItem,
-        openViewDetails: openViewDetails
+        viewDetails: viewDetails
     }
 })();

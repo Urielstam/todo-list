@@ -278,11 +278,7 @@ input::-webkit-datetime-edit-year-field:focus {
     gap: 1.5rem;
 }
 
-.view-title, 
-.view-desc, 
-.view-priority, 
-.view-due-date,
-.view-date-create {
+.view-detail{
     display: flex;
     align-items: center;
     gap: 1rem;
