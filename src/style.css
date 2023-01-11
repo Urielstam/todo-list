@@ -284,6 +284,18 @@ input::-webkit-datetime-edit-year-field:focus {
     gap: 1rem;
 }
 
+.view-detail-priority.high > :first-child {
+    color: var(--priority-high);
+}
+
+.view-detail-priority.medium > :first-child {
+    color: var(--priority-medium);
+}
+
+.view-detail-priority.low > :first-child {
+    color: var(--priority-low);
+}
+
 /* || CONTENTS */
 .contents {
     height: 100%;

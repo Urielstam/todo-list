@@ -61,21 +61,26 @@ const formatDueDate = (date) => {
     return formattedDate;
 }
 
-const displayPriorityColor = (todo, priority) => {
-    if(priority ==="priority-low") {
-        todo.classList.remove('priority-medium');
-        todo.classList.remove('priority-high');
-        todo.classList.add('priority-low');
+const displayPriorityColor = (todo, priority, high, medium, low) => {
+    if(!(high && medium && low)){
+        high = "priority-high";
+        medium = "priority-medium";
+        low = "priority-low";
+    } 
+    if(priority === "priority-medium") {
+        todo.classList.remove(low);
+        todo.classList.remove(high);
+        todo.classList.add(medium);
     }
-    else if(priority === "priority-medium") {
-        todo.classList.remove('priority-low');
-        todo.classList.remove('priority-high');
-        todo.classList.add('priority-medium');
+    else if(priority === "priority-low") {
+        todo.classList.remove(medium);
+        todo.classList.remove(high);
+        todo.classList.add(low);
     } 
     else if(priority === "priority-high") {
-        todo.classList.remove('priority-medium');
-        todo.classList.remove('priority-low');
-        todo.classList.add('priority-high');
+        todo.classList.remove(medium);
+        todo.classList.remove(low);
+        todo.classList.add(high);
     }
 }
 
@@ -110,6 +115,7 @@ export const formUtilsModule = (() => {
     const viewPriority = document.querySelector('.view-priority');
     const viewDueDate = document.querySelector('.view-due-date');
     const viewDateCreated = document.querySelector('.view-date-created');
+    const viewPriorityIcon = document.querySelector('.view-detail-priority')
     
     const openNewForm = () => {
         newAddOverlay.classList.add('is-visible');
@@ -210,12 +216,21 @@ export const formUtilsModule = (() => {
 
     const viewDetailsAggregator = (viewEl, elViewId) => {
         let elViewTask = taskList.getDefaultTaskList()[elViewId - 1];
-
         let formattedDueDate = formatDueDate(elViewTask.dueDate)
         let formattedDateCreated = formatDateCreated(elViewTask.dateCreated)
+        let formattedPriority = elViewTask.priority.split('-')[1];
+        console.log(formattedPriority)
+
             viewTitle.innerText = elViewTask.title;
-            viewDesc.innerText = elViewTask.desc;
-            viewPriority.innerText = elViewTask.priority;
+            if(elViewTask.desc) {
+                viewDesc.innerText = elViewTask.desc;
+            } else {
+                viewDesc.innerText = "no description..."
+            }
+            viewPriority.innerText = formattedPriority;
+
+            displayPriorityColor(viewPriorityIcon, elViewTask.priority, "high", "medium", "low");
+
             viewDueDate.innerText = formattedDueDate;
             viewDateCreated.innerText = formattedDateCreated;
     }
