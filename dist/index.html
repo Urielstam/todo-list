@@ -82,7 +82,7 @@
     </div>
     <div class="overlay-view-details">
         <div class="view-details-container">
-            <div class="close-view-details">
+            <div class="close-view-details btn-simple-animation">
                 <iconify-icon icon="ri:close-circle-line"></iconify-icon>
             </div>
             <div class="view-details-content">
@@ -105,6 +105,17 @@
                     <iconify-icon icon="mdi:clock-time-nine-outline"></iconify-icon>
                     <p class="view-date-created">Date created</p>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-delete-item-dialogue">
+        <div class="delete-dialogue-contents">
+            <div class="delete-dialogue-warning">
+                <p>Are you sure you want to delete this item?</p>
+            </div>
+            <div class="delete-dialogue-options">
+                <button class="cancel-dialogue-option dialogue-option">No</button>
+                <button class="delete-dialogue-option dialogue-option">Yes</button>
             </div>
         </div>
     </div>
@@ -145,7 +156,7 @@
                         <iconify-icon icon="material-symbols:border-all-outline-rounded"></iconify-icon>                       
                         <a href="">Projects</a>
                     </div>
-                    <div class="add-project">
+                    <div class="add-project btn-simple-animation">
                         <iconify-icon icon="material-symbols:add-rounded"></iconify-icon>
                     </div>
                 </div>
@@ -166,17 +177,17 @@
                     <div class="todo-container">
                     <h1>Today</h1>
                     <div class="add-todo">
-                        <button class="add-todo-btn">
+                        <button class="add-todo-btn btn-simple-animation">
                             <iconify-icon icon="material-symbols:add-circle-outline-rounded"></iconify-icon>                    
                         </button>
                         <p>Add a Task</p>
                     </div>
                     <div class="todo-list">
-                        <div id="todo0" class="todo-wrapper">
+                        <div id="default0" class="todo-wrapper" data-task="default">
                             <div class="todo-item">
                                 <div class="todo-item-main">
-                                    <input class="inp-cbx" id="cbx0" type="checkbox" style="display: none;">
-                                    <label class="cbx" for="cbx0">
+                                    <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;">
+                                    <label class="cbx" for="cbx">
                                         <span>
                                             <svg width="12px" height="9px" viewBox="0 0 12 9">
                                                 <polyline points="1 5 4 8 11 1"></polyline>

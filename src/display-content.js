@@ -2,11 +2,14 @@ import { createNewTask, taskList } from "./create-task";
 import format from 'date-fns/format';
 import getHours from 'date-fns/getHours'
 
-const todoWrapper = document.getElementById('todo0');
+const todoWrapper = document.getElementById('default0');
 
-export const displayNewTask = (title, desc, priority, date) => {
+// let num = 0;
+
+export const displayNewTask = (id, title, desc, priority, date) => {
     const todoList = document.querySelector('.todo-list');
-    let num = Number((todoList.lastElementChild.id).at(-1));
+    // let num = Number((todoList.lastElementChild.id).at(-1));
+    // let num = taskList.getDefaultTaskList().length - 1;
     const todoClone = todoWrapper.cloneNode(true);
     const todoTitle = todoClone.firstElementChild.firstElementChild.lastElementChild.lastElementChild;
     const checkbox = todoClone.firstElementChild.firstElementChild.firstElementChild;
@@ -15,45 +18,57 @@ export const displayNewTask = (title, desc, priority, date) => {
     const editBtn = todoActions[1];
     const dueDate = todoActions[0];
     const viewDetailsBtn = todoActions[3];
+    const deleteItemBtn = todoActions[2];
     
 
-    let inputId = Number((todoList.lastElementChild.firstElementChild.firstElementChild.firstElementChild.id).at(-1));
-    
-    let labelFor = Number((todoList.lastElementChild.firstElementChild.firstElementChild.lastElementChild.getAttribute('for')).at(-1));
-    
-    priority = taskList.getDefaultTaskList()[inputId].priority;
+    // let inputId = Number((todoList.lastElementChild.firstElementChild.firstElementChild.firstElementChild.id).at(-1));
+    // let inputId = taskList.getDefaultTaskList().length -1;
 
-   
+    // let labelFor = Number((todoList.lastElementChild.firstElementChild.firstElementChild.lastElementChild.getAttribute('for')).at(-1));
+    let arr = taskList.getDefaultTaskList();
+    // priority = taskList.getDefaultTaskList()[num].priority;
+    priority = arr.find(x => x.id === id).priority;
+    console.log(priority)
+    
     displayPriorityColor(todoClone, priority);
     
     // console.log(todoTitle)
     
-    todoClone.id = "todo" + (num + 1);
-    
-    
+    todoClone.dataset.task = "todo" + (id);
+    todoClone.id = "todo" + (id)
+    let todoId = Number((todoClone.id).at(-1));
+    // console.log(todoId)
     // Change checkbox id and for to work
-    checkboxLabel.htmlFor = "cbx" + (inputId + 1);
-    checkbox.id = "cbx" + (inputId + 1);
+    checkboxLabel.htmlFor = "cbx" + (id);
+    checkbox.id = "cbx" + (id);
+
+
     
     todoTitle.innerText = title;
 
     let displayFormattedDate = formatDueDate(date);
 
     dueDate.innerText = displayFormattedDate;
-    let description = taskList.getDefaultTaskList()[inputId].desc
+    let description = taskList.getDefaultTaskList().find(x => x.id === id).desc
     
     editBtn.addEventListener('click', (e) => {
-        formUtilsModule.editItem(e,  (inputId + 1), todoTitle.innerText, description, priority, date)
+        formUtilsModule.editItem(e,  (id), todoTitle.innerText, description, priority, date)
     })
 
     viewDetailsBtn.addEventListener('click', (e) => {
-        formUtilsModule.viewDetails(e, (inputId + 1));
+        formUtilsModule.viewDetails(e, (id));
+    })
+
+    deleteItemBtn.addEventListener('click', (e) => {
+        formUtilsModule.openDeleteItemDialogue((id));
     })
 
     todoWrapper.parentNode.appendChild(todoClone);
 
+    // num++;
+    
     return todoClone;
-
+    
 }
 
 const formatDueDate = (date) => {
@@ -115,7 +130,12 @@ export const formUtilsModule = (() => {
     const viewPriority = document.querySelector('.view-priority');
     const viewDueDate = document.querySelector('.view-due-date');
     const viewDateCreated = document.querySelector('.view-date-created');
-    const viewPriorityIcon = document.querySelector('.view-detail-priority')
+    const viewPriorityIcon = document.querySelector('.view-detail-priority');
+
+    const closeDeleteItemBtn = document.querySelector('.cancel-dialogue-option');
+    const deleteTaskItemBtn = document.querySelector('.delete-dialogue-option');
+    const deleteItemDialogueOverlay = document.querySelector('.overlay-delete-item-dialogue');
+
     
     const openNewForm = () => {
         newAddOverlay.classList.add('is-visible');
@@ -142,26 +162,37 @@ export const formUtilsModule = (() => {
     const closeViewDetails = () => {
         veiwDetailsOverlay.classList.remove('is-visible');
     }
+
+    const openDeleteItemDialogue = (deleteId) => {
+        deleteItemDialogueOverlay.classList.add('is-visible');
+        deleteTaskItemAggregator(deleteId);
+    }
+
+    const closeDeleteItemDialogue = () => {
+        deleteItemDialogueOverlay.classList.remove('is-visible');
+    }
     
     const submitForm = () => {
         let title = formTitle.value;
         let desc = formDesc.value;
         let dueDate = formDate.value;
         let priority = setPriority(newRadios);
+        let id;
         
         if(title) {
             console.log(title + desc + dueDate);
-            createNewTask(title, desc, priority, dueDate);
+            createNewTask(id, title, desc, priority, dueDate);
         }
     }
 
     let currentEditId;
     let currentViewId;
+    let currentDeleteId;
 
     const editItemForm = (id) => {
         id  = currentEditId;
 
-        let task = taskList.getDefaultTaskList()[id - 1];
+        let task = taskList.getDefaultTaskList().find(x => x.id === id);
         
         let currentEditItem = document.getElementById(`todo${id}`);
         let currentEditItemTitle = currentEditItem.firstElementChild.firstElementChild.lastElementChild.lastElementChild;
@@ -195,7 +226,7 @@ export const formUtilsModule = (() => {
         if(el.target.tagName.toLowerCase() === 'iconify-icon') {
             // let parentCardEl = el.target.parentNode.parentNode.parentNode.parentNode;
             // console.log(el)
-            let elTask = taskList.getDefaultTaskList()[elId - 1];
+            let elTask = taskList.getDefaultTaskList().find(x => x.id === elId);
 
             editFormTitle.value = elTitle;
             editFormDesc.value = elTask.desc;
@@ -215,7 +246,7 @@ export const formUtilsModule = (() => {
     }
 
     const viewDetailsAggregator = (viewEl, elViewId) => {
-        let elViewTask = taskList.getDefaultTaskList()[elViewId - 1];
+        let elViewTask = taskList.getDefaultTaskList().find(x => x.id === elViewId);
         let formattedDueDate = formatDueDate(elViewTask.dueDate)
         let formattedDateCreated = formatDateCreated(elViewTask.dateCreated)
         let formattedPriority = elViewTask.priority.split('-')[1];
@@ -233,6 +264,21 @@ export const formUtilsModule = (() => {
 
             viewDueDate.innerText = formattedDueDate;
             viewDateCreated.innerText = formattedDateCreated;
+    }
+
+    const deleteTaskItem = (elDeleteId) => {
+        elDeleteId = currentDeleteId;
+        let arr = taskList.getDefaultTaskList();
+        let index = arr.indexOf(arr.find(x => x.id === elDeleteId));
+        taskList.removeTask(index);
+        let currentDeleteItem = document.getElementById(`todo${elDeleteId}`);
+        currentDeleteItem.remove();
+        console.log(taskList.getDefaultTaskList());
+        closeDeleteItemDialogue();
+    }
+
+    const deleteTaskItemAggregator = (elDeleteId) => {
+        currentDeleteId = elDeleteId;
     }
 
     const checkRadio = (priority) => {
@@ -274,12 +320,21 @@ export const formUtilsModule = (() => {
         dateCreated();
     });
 
-    [...closeNewFormBtns].forEach(close => {
+    closeDeleteItemBtn.addEventListener('click', (e) => {
+        closeDeleteItemDialogue();
+    })
+
+    deleteTaskItemBtn.addEventListener('click', (e) => {
+        deleteTaskItem();
+    })
+
+    Array.from(closeNewFormBtns).forEach(close => {
         close.addEventListener('click', (e) => {
             closeNewForm();
             closeEditForm();
         });
-    })
+    });
+
     
     Array.from(closeViewDetailsBtns).forEach(close => {
         close.addEventListener('click', (e) => {
@@ -326,6 +381,7 @@ export const formUtilsModule = (() => {
     return {
         setPriority: setPriority,
         editItem: editItem,
-        viewDetails: viewDetails
+        viewDetails: viewDetails,
+        openDeleteItemDialogue: openDeleteItemDialogue
     }
 })();
