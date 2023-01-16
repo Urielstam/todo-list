@@ -6,7 +6,20 @@ const todoWrapper = document.getElementById('default0');
 
 // let num = 0;
 
-export const displayNewTask = (id, title, desc, priority, date) => {
+export const displayNewProject = (title) => {
+    const projectItems = document.querySelector('.project-items');
+    let newProjectItem = document.createElement('div');
+    let newDot = document.createElement('div');
+    let newLink = document.createElement('a');
+    newProjectItem.classList.add('project-item');
+    newDot.classList.add('dot');
+    newLink.href = "";
+    newLink.innerText = title;
+    newProjectItem.append(newDot, newLink);
+    projectItems.appendChild(newProjectItem);
+}
+
+export const displayNewTask = (id, title, desc, priority, date, project) => {
     const todoList = document.querySelector('.todo-list');
     // let num = Number((todoList.lastElementChild.id).at(-1));
     // let num = taskList.getDefaultTaskList().length - 1;
@@ -28,8 +41,7 @@ export const displayNewTask = (id, title, desc, priority, date) => {
     let arr = taskList.getDefaultTaskList();
     // priority = taskList.getDefaultTaskList()[num].priority;
     priority = arr.find(x => x.id === id).priority;
-    console.log(priority)
-    
+
     displayPriorityColor(todoClone, priority);
     
     // console.log(todoTitle)
@@ -50,7 +62,8 @@ export const displayNewTask = (id, title, desc, priority, date) => {
 
     dueDate.innerText = displayFormattedDate;
     let description = taskList.getDefaultTaskList().find(x => x.id === id).desc
-    
+
+
     editBtn.addEventListener('click', (e) => {
         formUtilsModule.editItem(e,  (id), todoTitle.innerText, description, priority, date)
     })
@@ -63,7 +76,7 @@ export const displayNewTask = (id, title, desc, priority, date) => {
         formUtilsModule.openDeleteItemDialogue((id));
     })
 
-    todoWrapper.parentNode.appendChild(todoClone);
+    todoList.appendChild(todoClone);
 
     // num++;
     
@@ -122,7 +135,7 @@ export const formUtilsModule = (() => {
     const editFormDesc = document.querySelector('input[id="description-edit"]');
     const editFormDate = document.querySelector('#edit-due-date')
     const editRadios = document.querySelectorAll('input[name="radio-edit"]');
-    console.log(editRadios)
+
 
     const veiwDetailsOverlay = document.querySelector('.overlay-view-details');
     const viewTitle = document.querySelector('.view-title');
@@ -136,7 +149,12 @@ export const formUtilsModule = (() => {
     const deleteTaskItemBtn = document.querySelector('.delete-dialogue-option');
     const deleteItemDialogueOverlay = document.querySelector('.overlay-delete-item-dialogue');
 
-    
+    const addProjectOverlay = document.querySelector('.overlay-add-new-project');
+    const closeAddProjectBtn = document.querySelector('.cancel-project-btn')
+    const openAddProjectBtn = document.querySelector('.add-project');
+    const newProjectForm = document.querySelector('.add-new-project')
+    const newProjectTitleInput = document.querySelector('input[id="new-project-name"]')
+
     const openNewForm = () => {
         newAddOverlay.classList.add('is-visible');
     }
@@ -171,6 +189,16 @@ export const formUtilsModule = (() => {
     const closeDeleteItemDialogue = () => {
         deleteItemDialogueOverlay.classList.remove('is-visible');
     }
+
+    const openAddProject = () => {
+        addProjectOverlay.classList.add('is-visible');
+        newProjectTitleInput.focus();
+    }
+
+    const closeAddProject = () => {
+        addProjectOverlay.classList.remove('is-visible');
+        newProjectForm.reset();
+    }
     
     const submitForm = () => {
         let title = formTitle.value;
@@ -180,7 +208,6 @@ export const formUtilsModule = (() => {
         let id;
         
         if(title) {
-            console.log(title + desc + dueDate);
             createNewTask(id, title, desc, priority, dueDate);
         }
     }
@@ -208,9 +235,7 @@ export const formUtilsModule = (() => {
         task.desc = editFormDesc.value;
         task.priority = setPriority(editRadios);
         displayPriorityColor(currentEditItem, task.priority);
-        console.log(task.priority);
 
-        console.log(task)
         console.log(taskList.getDefaultTaskList())
 
     }
@@ -223,20 +248,20 @@ export const formUtilsModule = (() => {
     }
 
     const editItemDetailAggregator = (el, elId, elTitle, elDesc, priority, dueDate) => {
-        if(el.target.tagName.toLowerCase() === 'iconify-icon') {
-            // let parentCardEl = el.target.parentNode.parentNode.parentNode.parentNode;
-            // console.log(el)
-            let elTask = taskList.getDefaultTaskList().find(x => x.id === elId);
+    
+        // Maybe need to check if target is icon in if statemant
 
-            editFormTitle.value = elTitle;
-            editFormDesc.value = elTask.desc;
-            editFormDate.value = elTask.dueDate;
+        // let parentCardEl = el.target.parentNode.parentNode.parentNode.parentNode;
+        // console.log(el)
+        let elTask = taskList.getDefaultTaskList().find(x => x.id === elId);
 
-            priority = elTask.priority;
-            console.log(priority)
-            checkRadio(priority);
-            
-        }
+        editFormTitle.value = elTitle;
+        editFormDesc.value = elTask.desc;
+        editFormDate.value = elTask.dueDate;
+
+        priority = elTask.priority;
+        console.log(priority)
+        checkRadio(priority);
     }
 
     const viewDetails =  (viewEl, elViewId) => {
@@ -313,19 +338,26 @@ export const formUtilsModule = (() => {
     }
     
     let priority = "priority-" + setPriority(newRadios);
-    console.log(priority);
     
     addTodoBtn.addEventListener('click', (e) => {
         openNewForm();
         dateCreated();
     });
 
+    openAddProjectBtn.addEventListener('click', (e) => {
+        openAddProject()
+    })
+
     closeDeleteItemBtn.addEventListener('click', (e) => {
         closeDeleteItemDialogue();
-    })
+    });
 
     deleteTaskItemBtn.addEventListener('click', (e) => {
         deleteTaskItem();
+    });
+
+    closeAddProjectBtn.addEventListener('click', (e) => {
+        closeAddProject();
     })
 
     Array.from(closeNewFormBtns).forEach(close => {
@@ -376,6 +408,12 @@ export const formUtilsModule = (() => {
         e.preventDefault();
         editItemForm();
         closeEditForm();
+    });
+
+    newProjectForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        displayNewProject(newProjectTitleInput.value);
+        closeAddProject();
     })
 
     return {

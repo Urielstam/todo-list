@@ -119,6 +119,18 @@
             </div>
         </div>
     </div>
+    <div class="overlay-add-new-project">
+        <form class="add-new-project" autocomplete="off">
+            <div class="add-new-project-main">
+                <!-- <label for="new-project-name">Name</label> -->
+                <input id="new-project-name" type="text" placeholder="Project name" required>
+                <div class="add-project-options">
+                    <button type="button" class="cancel-project-btn add-project-option">Cancel</button>
+                    <button type="submit" class="add-project-btn add-project-option">Add project</button>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="contents">
         <div class="header">
             <div class="header-nav">
@@ -182,8 +194,8 @@
                         </button>
                         <p>Add a Task</p>
                     </div>
-                    <div class="todo-list">
-                        <div id="default0" class="todo-wrapper" data-task="default">
+                    <!-- move the default out of todolist as to not delete it when deleting all todolist child items -->
+                    <div id="default0" class="todo-wrapper" data-task="default">
                             <div class="todo-item">
                                 <div class="todo-item-main">
                                     <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;">
@@ -209,7 +221,8 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                    </div>
+                    <div class="todo-list"></div>
                     </div>
                 </div>
             </main>

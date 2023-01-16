@@ -57,7 +57,8 @@ body {
 .overlay-create-new,
 .overlay-edit,
 .overlay-view-details,
-.overlay-delete-item-dialogue {
+.overlay-delete-item-dialogue,
+.overlay-add-new-project {
     z-index: 2;
     position: fixed;
     top: 0;
@@ -75,22 +76,27 @@ body {
     -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
     -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
     transition: opacity 0.3s 0s, visibility 0s 0.3s;
-  }
-  .is-visible {
+}
+
+.is-visible {
     opacity: 1;
     visibility: visible;
     /* display: flex; */
     -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
     -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
     transition: opacity 0.3s 0s, visibility 0s 0s;
-  }
+}
 
-  .overlay-delete-item-dialogue {
+.overlay-delete-item-dialogue {
     text-align: center;
-  }
+}
   
-  form.create-new, form.edit, .view-details-container, .delete-dialogue-contents {
-    
+form.create-new, 
+form.edit, 
+.view-details-container, 
+.delete-dialogue-contents,
+form.add-new-project {
+
     background-color: var(--aside-color);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     box-sizing: border-box;
@@ -115,19 +121,42 @@ body {
     -webkit-transition-duration: 0.3s;
     -moz-transition-duration: 0.3s;
     transition-duration: 0.3s;
-  }
+}
 
-.create-new-main, .edit-main {
+.create-new-main, 
+.edit-main {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.create-new-main input, .edit-main input {
+.add-new-project-main {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+
+.create-new-main input,
+.edit-main input {
     outline: none;
     font-size: 0.8rem;
     color: var(--text-color);
     background-color: var(--aside-color);
+} 
+
+.add-new-project input {
+    border: 1px solid rgb(131, 131, 131);
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    background-color: var(--aside-color);
+    margin: 0.5rem 0 1rem 0;
+}
+
+.add-new-project input:focus {
+    outline: none;
+    border: 1px solid var(--accent-color);
 }
 
 .create-new-main input:nth-child(1), .edit-main input:nth-child(1) {
@@ -163,7 +192,7 @@ input[type="radio"] {
     -webkit-appearance: none;
     appearance: none;
     /* For iOS < 15 to remove gradient background */
-    background-color: #fff;
+    background-color: var(--main-color);
     /* Not removed via appearance */
     margin: 0;
     font: inherit;
@@ -178,17 +207,17 @@ input[type="radio"] {
 }
 
 input[type="radio"]::before {
-content: "";
-width: 0.65em;
-height: 0.65em;
-border-radius: 50%;
-transform: scale(0);
-transition: 120ms transform ease-in-out;
-box-shadow: inset 1em 1em var(--accent-color);
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--accent-color);
 }
 
 input[type="radio"]:checked::before {
-transform: scale(1);
+    transform: scale(1);
 }
 
 
@@ -248,7 +277,14 @@ transform: scale(1);
     gap: 1rem;
 }
 
-.dialogue-option {
+.add-project-options  {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.dialogue-option,
+.add-project-option {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -486,7 +522,9 @@ nav {
     cursor: pointer;
 }
 
-.side-nav:hover, .project-item:hover, .project-title-container:hover {
+.side-nav:hover,
+.project-item:hover,
+.project-title-container:hover {
     background-color: var(--aside-hover-color);
 }
 
@@ -501,6 +539,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-radius: 8px;
+    padding: 0 5px;
 }
 
 .project-title-container .add-project {
@@ -513,8 +553,6 @@ nav {
     align-items: center;
     gap: 5px;
     font-size: 1.2rem;
-    padding: 5px;
-    border-radius: 8px;
 }
 
 .project-item {
@@ -523,6 +561,7 @@ nav {
     gap: 10px;
     padding: 5px 5px 5px 10px;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .dot {
