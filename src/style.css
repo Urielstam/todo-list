@@ -399,7 +399,15 @@ input::-webkit-datetime-edit-year-field:focus {
     grid-template-areas: 
     "header header"
     "nav main";
+    transition: grid-template-columns 0.5s ease-in-out;
+
 }
+
+/* @media screen and (max-width: 700px) {
+    .contents {
+      grid-template-columns: 0 3fr;
+    }
+  } */
 
 a {
     color: inherit;
@@ -521,13 +529,21 @@ box-shadow: inset -3px -2px 5px -2px var(--accent-color), inset -10px -4px 0 0 v
 /* || ASIDE */
 nav {
     width: 250px;
+    max-width: 250px;
     grid-area: nav;
     overflow: auto;
     overflow-x: hidden;
     /* transition: all 1s; */
     transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* transition: max-width .5s cubic-bezier(0.4, 0, 0.2, 1); */
     background-color: var(--aside-color);
 }
+
+/* @media screen and (max-width: 700px) {
+    nav {
+      max-width: 0;
+    }
+  } */
 
 
 .sidebar-content-nav {
@@ -748,7 +764,7 @@ transform: translateY(.125rem);
 }
 
 .todo-wrapper {
-    width: clamp(400px, 50%, 750px);
+    width: clamp(350px, 50%, 750px);
     padding: 1rem 1rem 1rem 1rem;
     border-radius: 5px;
     box-shadow: 2px 1px 2px rgb(var(--todo-hover), 0.15);
