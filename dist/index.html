@@ -40,8 +40,8 @@
             </div>
             <div class="create-new-divider"></div>
             <div class="create-new-actions">
-                <button type="button" class="form-btn cancel-form-btn">Cancel</button>
-                <button type="submit" class="form-btn add-task">Add task</button>
+                <button type="button" class="form-btn cancel-form-btn btn-simple-animation">Cancel</button>
+                <button type="submit" class="confirm-btn form-btn add-task btn-simple-animation">Add task</button>
             </div>
         </form>
     </div>
@@ -75,8 +75,8 @@
             </div>
             <div class="edit-divider"></div>
             <div class="edit-actions">
-                <button type="button" class="form-btn cancel-form-btn">Cancel</button>
-                <button type="submit" class="form-btn edit-task">Edit task</button>
+                <button type="button" class="form-btn cancel-form-btn btn-simple-animation">Cancel</button>
+                <button type="submit" class="confirm-btn form-btn edit-taskv btn-simple-animation">Edit task</button>
             </div>
         </form>
     </div>
@@ -114,19 +114,8 @@
                 <p>Are you sure you want to delete this item?</p>
             </div>
             <div class="delete-dialogue-options">
-                <button class="cancel-dialogue-option dialogue-option">No</button>
-                <button class="delete-dialogue-option dialogue-option">Yes</button>
-            </div>
-        </div>
-    </div>
-    <div class="overlay-delete-project-dialogue">
-        <div class="delete-project-dialogue-contents">
-            <div class="delete-project-dialogue-warning">
-                <p>Are you sure you want to delete this project with all its tasks?</p>
-            </div>
-            <div class="delete-project-dialogue-options">
-                <button class="cancel-project-dialogue-option dialogue-option">No</button>
-                <button class="delete-project-dialogue-option dialogue-option">Yes</button>
+                <button class="cancel-dialogue-option dialogue-option btn-simple-animation">No</button>
+                <button class="confirm-delete-btn delete-dialogue-option dialogue-option btn-simple-animation">Yes</button>
             </div>
         </div>
     </div>
@@ -136,11 +125,23 @@
                 <!-- <label for="new-project-name">Name</label> -->
                 <input id="new-project-name" type="text" placeholder="Project name" required maxlength="20">
                 <div class="add-project-options">
-                    <button type="button" class="cancel-project-btn add-project-option">Cancel</button>
-                    <button type="submit" class="add-project-btn add-project-option">Add project</button>
+                    <button type="button" class="cancel-project-btn add-project-option btn-simple-animation">Cancel</button>
+                    <button type="submit" class="confirm-btn add-project-btn add-project-option btn-simple-animation">Add project</button>
                 </div>
             </div>
         </form>
+    </div>
+    <div class="overlay-delete-project-dialogue">
+        <div class="delete-project-dialogue-contents">
+            <div class="delete-project-dialogue-warning">
+                <p>Are you sure you want to delete this project?</p>
+                <p>Note: all of this projects tasks will be deleted</p>
+            </div>
+            <div class="delete-project-dialogue-options">
+                <button class="cancel-project-dialogue-option dialogue-option btn-simple-animation">No</button>
+                <button class="confirm-delete-btn delete-project-dialogue-option dialogue-option btn-simple-animation">Yes</button>
+            </div>
+        </div>
     </div>
     <div class="contents">
         <div class="header">

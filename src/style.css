@@ -277,11 +277,17 @@ input[type="radio"]:checked::before {
 .delete-project-dialogue-options {
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
 .delete-project-dialogue-warning {
     text-align: center;
+}
+
+.delete-project-dialogue-warning p:nth-child(2) {
+    color: var(--priority-high);
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
 }
 
 .add-project-options  {
@@ -370,6 +376,18 @@ input::-webkit-datetime-edit-year-field:focus {
 
 .view-detail-priority.low > :first-child {
     color: var(--priority-low);
+}
+
+.confirm-btn {
+    background-color: var(--accent-color);
+    color: rgb(255, 255, 255, 0.8);
+    font-weight: 700;
+}
+
+.confirm-delete-btn {
+    background-color: var(--priority-high);
+    color: rgb(255, 255, 255, 0.8);
+    font-weight: 700;
 }
 
 /* || CONTENTS */

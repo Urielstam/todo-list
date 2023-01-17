@@ -50,6 +50,7 @@ export const displayNewProject = (title) => {
     projectItems.appendChild(projectClone);
 }
 
+
 export const displayNewTask = (id, title, desc, priority, date, project, completed) => {
     const todoList = document.querySelector('.todo-list');
     // let num = Number((todoList.lastElementChild.id).at(-1));

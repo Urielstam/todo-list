@@ -1,7 +1,7 @@
 import './style.css';
 import { taskList } from './create-task';
 import { openCloseSidebarModule, toggleThemeModule,  } from './theme-layout-utils';
-import { formUtilsModule, displayNewTask, displayAllTasks } from "./display-content";
+import { formUtilsModule, displayNewTask, displayNewProject, displayAllTasks } from "./display-content";
 
 const todoList = document.querySelector('.todo-list');
 const allTasks = document.getElementById('all-tasks');
@@ -10,7 +10,7 @@ const mainTitle = document.querySelector('.main-title');
 const projectItemsContainer = document.querySelector('.project-items');
 const projectItemList = document.querySelectorAll('.project-item');
 
-
+displayNewProject("Work");
 
 allTasks.addEventListener('click', (e) => {
     mainTitle.innerText = "All";
