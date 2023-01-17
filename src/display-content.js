@@ -19,7 +19,7 @@ export const displayNewProject = (title) => {
     projectItems.appendChild(newProjectItem);
 }
 
-export const displayNewTask = (id, title, desc, priority, date, project) => {
+export const displayNewTask = (id, title, desc, priority, date, project, completed) => {
     const todoList = document.querySelector('.todo-list');
     // let num = Number((todoList.lastElementChild.id).at(-1));
     // let num = taskList.getDefaultTaskList().length - 1;
@@ -53,8 +53,27 @@ export const displayNewTask = (id, title, desc, priority, date, project) => {
     // Change checkbox id and for to work
     checkboxLabel.htmlFor = "cbx" + (id);
     checkbox.id = "cbx" + (id);
+    
+    completed = arr.find(x => x.id === id).completed;
 
+    if(completed) {
+        checkbox.checked = true;
+    } 
+    else if (!completed) {
+        checkbox.checked = false;
+    }
+    let task = arr.find(x => x.id === id);
 
+    checkbox.addEventListener('click', (e) => {
+        if(checkbox.checked) {
+            task.completed = true;
+            console.log(arr)
+        } else {
+            task.completed= false;
+            console.log('change')
+            console.log(arr)
+        }
+    })
     
     todoTitle.innerText = title;
 

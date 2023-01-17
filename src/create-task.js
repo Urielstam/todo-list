@@ -8,7 +8,8 @@ const exampleTodo = {
     priority: "priority-low",
     dueDate: "2023-01-08",
     dateCreated: undefined,
-    project: "today"
+    project: "today",
+    completed: false
 }
 
 const exampleTodo2 = {
@@ -18,7 +19,8 @@ const exampleTodo2 = {
     priority: "priority-medium",
     dueDate: "2023-01-15",
     dateCreated: undefined,
-    project: "today"
+    project: "today",
+    completed: false
 }
 
 // TODO Create todoList array object to store all todos
@@ -71,7 +73,7 @@ const addSubTask = () => {
 //     // Get current date
 // }
 
-const taskFactory = (id, title, desc, priority, dueDate, dateCreated, project) => {
+const taskFactory = (id, title, desc, priority, dueDate, dateCreated, project, completed) => {
     return {
         id,
         title,
@@ -79,7 +81,8 @@ const taskFactory = (id, title, desc, priority, dueDate, dateCreated, project) =
         priority,
         dueDate,
         dateCreated,
-        project
+        project,
+        completed
     };
 }
 
@@ -96,23 +99,23 @@ const setId = () => {
     return stringId;
 }
 
-export const createNewTask = (id, title, desc, priority, dueDate, dateCreated, project) => {
+export const createNewTask = (id, title, desc, priority, dueDate, dateCreated, project, completed) => {
     const mainTitle = document.querySelector('.main-title');
     project = mainTitle.innerText;
     dateCreated = new Date();
     if(!id) {
         id = setId();
     }
-    let newTask = taskFactory(id, title, desc, priority, dueDate, dateCreated, project);
+    let newTask = taskFactory(id, title, desc, priority, dueDate, dateCreated, project, completed);
     taskList.addTask(newTask);
     console.log(taskList.getDefaultTaskList());
-    displayNewTask(id, title, desc, priority, dueDate);
+    displayNewTask(id, title, desc, priority, dueDate, completed);
 }
 
 createNewTask(exampleTodo.id, exampleTodo.title, exampleTodo.desc, 
-    exampleTodo.priority, exampleTodo.dueDate, exampleTodo.dateCreated, exampleTodo.project);
+    exampleTodo.priority, exampleTodo.dueDate, exampleTodo.dateCreated, exampleTodo.project, exampleTodo.completed);
 createNewTask(exampleTodo2.id,exampleTodo2.title, exampleTodo2.desc, 
-    exampleTodo2.priority, exampleTodo2.dueDate, exampleTodo2.dateCreated, exampleTodo2.project);
+    exampleTodo2.priority, exampleTodo2.dueDate, exampleTodo2.dateCreated, exampleTodo2.project, exampleTodo2.completed);
 // When form submitted - retrieve the values of inputs - and 
 // pass then into createTask()
 
