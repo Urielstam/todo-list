@@ -2,21 +2,52 @@ import { createNewTask, taskList } from "./create-task";
 import format from 'date-fns/format';
 import getHours from 'date-fns/getHours'
 
-const todoWrapper = document.getElementById('default0');
 
+const mainTitle = document.querySelector('.main-title');
+const todoList = document.querySelector('.todo-list');
+
+
+
+const todoWrapper = document.getElementById('default0');
+const projectItem = document.querySelector('.project-item');
+const deleteProjectDiv = document.querySelector('.delete-project');
+deleteProjectDiv.addEventListener('click', (e) => {
+    formUtilsModule.openDeleteProjectDialogue()
+})
 // let num = 0;
 
+export const displayAllTasks = (title) => {
+    let todoArr = taskList.getDefaultTaskList();
+    for (let todo of todoArr) {
+        if (todo.project === title || title === "All") {
+            // checkifCompleted();
+            displayNewTask(todo.id, todo.title, todo.desc, todo.priority, todo.dueDate, todo.project, todo.completed);
+        }
+    }
+}
+
 export const displayNewProject = (title) => {
+    let projectTitle = title
+    let dataCard;
     const projectItems = document.querySelector('.project-items');
-    let newProjectItem = document.createElement('div');
-    let newDot = document.createElement('div');
-    let newLink = document.createElement('a');
-    newProjectItem.classList.add('project-item');
-    newDot.classList.add('dot');
-    newLink.href = "";
-    newLink.innerText = title;
-    newProjectItem.append(newDot, newLink);
-    projectItems.appendChild(newProjectItem);
+    const projectClone = projectItem.cloneNode(true);
+    if(projectItems.children.length > 0) {
+        dataCard = Number(projectItems.lastElementChild.dataset.project);
+    } else {
+        dataCard = 0;
+    }
+    projectClone.dataset.project = (dataCard + 1);
+    let newLink = projectClone.children[1];
+    let deleteBtn = projectClone.lastElementChild;
+    deleteBtn.addEventListener('click', (e) => {
+        console.log("hey");
+        let parent = deleteBtn.parentNode;
+        let deleteProjectId = parent.dataset.project.at(-1);
+        console.log(parent)
+        formUtilsModule.openDeleteProjectDialogue(deleteProjectId, projectTitle);
+    })
+    newLink.innerText = projectTitle;
+    projectItems.appendChild(projectClone);
 }
 
 export const displayNewTask = (id, title, desc, priority, date, project, completed) => {
@@ -174,6 +205,10 @@ export const formUtilsModule = (() => {
     const newProjectForm = document.querySelector('.add-new-project')
     const newProjectTitleInput = document.querySelector('input[id="new-project-name"]')
 
+    const closeDeleteProjectBtn = document.querySelector('.cancel-project-dialogue-option');
+    const deleteProjectBtn = document.querySelector('.delete-project-dialogue-option');
+    const deleteProjectDialogueOverlay = document.querySelector('.overlay-delete-project-dialogue');
+
     const openNewForm = () => {
         newAddOverlay.classList.add('is-visible');
     }
@@ -202,7 +237,9 @@ export const formUtilsModule = (() => {
 
     const openDeleteItemDialogue = (deleteId) => {
         deleteItemDialogueOverlay.classList.add('is-visible');
-        deleteTaskItemAggregator(deleteId);
+        if(deleteId) {
+            deleteTaskItemAggregator(deleteId);
+        }
     }
 
     const closeDeleteItemDialogue = () => {
@@ -217,6 +254,15 @@ export const formUtilsModule = (() => {
     const closeAddProject = () => {
         addProjectOverlay.classList.remove('is-visible');
         newProjectForm.reset();
+    }
+
+    const openDeleteProjectDialogue = (deleteProjectId, projectTitle) => {
+        deleteProjectDialogueOverlay.classList.add('is-visible');
+        deleteProjectAggregator(deleteProjectId, projectTitle);
+    }
+
+    const closeDeleteProjectDialogue = () => {
+        deleteProjectDialogueOverlay.classList.remove('is-visible');
     }
     
     const submitForm = () => {
@@ -234,6 +280,8 @@ export const formUtilsModule = (() => {
     let currentEditId;
     let currentViewId;
     let currentDeleteId;
+    let currentDeleteProjectId;
+    let currentProjectTitle;
 
     const editItemForm = (id) => {
         id  = currentEditId;
@@ -325,6 +373,35 @@ export const formUtilsModule = (() => {
         currentDeleteId = elDeleteId;
     }
 
+    const deleteProject = (projectDeleteId, projectTitle) => {
+        projectDeleteId = currentDeleteProjectId;
+        projectTitle = currentProjectTitle;
+        let arr = taskList.getDefaultTaskList();
+        arr.forEach(element => {
+            if(element.project === projectTitle) {
+                console.log(projectTitle)
+                let index = arr.indexOf(arr.find(x => x.id === element.id))
+                // console.log(index)
+                taskList.removeTask(index);
+            }
+            mainTitle.innerText = "Today";
+            while(todoList.hasChildNodes()) {
+                todoList.removeChild(todoList.firstChild);
+            }
+            displayAllTasks("Today");
+        })
+
+        let currentProjectItem = document.querySelector(`[data-project="${projectDeleteId}"]`);
+        currentProjectItem.remove();
+        console.log(arr);
+        closeDeleteProjectDialogue();
+    }
+
+    const deleteProjectAggregator = (projectDeleteId, projectTitle) => {
+        currentDeleteProjectId = projectDeleteId;
+        currentProjectTitle = projectTitle;
+    }
+
     const checkRadio = (priority) => {
         if(priority === "priority-low") {
             editRadios[0].checked = true;
@@ -377,6 +454,14 @@ export const formUtilsModule = (() => {
 
     closeAddProjectBtn.addEventListener('click', (e) => {
         closeAddProject();
+    });
+
+    closeDeleteProjectBtn.addEventListener('click', (e) => {
+        closeDeleteProjectDialogue();
+    })
+
+    deleteProjectBtn.addEventListener('click', (e) => {
+        deleteProject();
     })
 
     Array.from(closeNewFormBtns).forEach(close => {
@@ -439,6 +524,7 @@ export const formUtilsModule = (() => {
         setPriority: setPriority,
         editItem: editItem,
         viewDetails: viewDetails,
-        openDeleteItemDialogue: openDeleteItemDialogue
+        openDeleteItemDialogue: openDeleteItemDialogue,
+        openDeleteProjectDialogue: openDeleteProjectDialogue
     }
 })();

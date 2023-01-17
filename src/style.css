@@ -58,7 +58,8 @@ body {
 .overlay-edit,
 .overlay-view-details,
 .overlay-delete-item-dialogue,
-.overlay-add-new-project {
+.overlay-add-new-project,
+.overlay-delete-project-dialogue {
     z-index: 2;
     position: fixed;
     top: 0;
@@ -95,7 +96,8 @@ form.create-new,
 form.edit, 
 .view-details-container, 
 .delete-dialogue-contents,
-form.add-new-project {
+form.add-new-project,
+.delete-project-dialogue-contents {
 
     background-color: var(--aside-color);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -271,10 +273,15 @@ input[type="radio"]:checked::before {
     cursor: pointer;
 }
 
-.delete-dialogue-options {
+.delete-dialogue-options,
+.delete-project-dialogue-options {
     display: flex;
     justify-content: center;
     gap: 1rem;
+}
+
+.delete-project-dialogue-warning {
+    text-align: center;
 }
 
 .add-project-options  {
@@ -556,12 +563,37 @@ nav {
 }
 
 .project-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 8fr 1fr;
     align-items: center;
     gap: 10px;
     padding: 5px 5px 5px 10px;
     border-radius: 8px;
     cursor: pointer;
+}
+
+.project-item:nth-child(1) {
+    display: none;
+}
+
+.project-item-content {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.delete-project {
+    display: flex;
+    justify-self: flex-end;
+    opacity: 0;
+    padding: 0.5rem;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.project-item:hover .delete-project {
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
 }
 
 .dot {

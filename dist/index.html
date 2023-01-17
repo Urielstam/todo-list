@@ -119,11 +119,22 @@
             </div>
         </div>
     </div>
+    <div class="overlay-delete-project-dialogue">
+        <div class="delete-project-dialogue-contents">
+            <div class="delete-project-dialogue-warning">
+                <p>Are you sure you want to delete this project with all its tasks?</p>
+            </div>
+            <div class="delete-project-dialogue-options">
+                <button class="cancel-project-dialogue-option dialogue-option">No</button>
+                <button class="delete-project-dialogue-option dialogue-option">Yes</button>
+            </div>
+        </div>
+    </div>
     <div class="overlay-add-new-project">
         <form class="add-new-project" autocomplete="off">
             <div class="add-new-project-main">
                 <!-- <label for="new-project-name">Name</label> -->
-                <input id="new-project-name" type="text" placeholder="Project name" required>
+                <input id="new-project-name" type="text" placeholder="Project name" required maxlength="20">
                 <div class="add-project-options">
                     <button type="button" class="cancel-project-btn add-project-option">Cancel</button>
                     <button type="submit" class="add-project-btn add-project-option">Add project</button>
@@ -173,14 +184,19 @@
                     </div>
                 </div>
                 <div class="project-items">
-                    <div class="project-item">
+                    <div class="project-item" data-project="0">
                         <div class="dot"></div>
                         <a href="">Work</a>
+                        <div class="delete-project">
+                            <iconify-icon icon="ic:round-delete-outline"></iconify-icon>
+                        </div>
+                        <!-- <button class="delete-item">
+                        </button> -->
                     </div>
-                    <div class="project-item">
+                    <!-- <div class="project-item">
                         <div class="dot"></div>
                         <a href="">Home</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </nav>
