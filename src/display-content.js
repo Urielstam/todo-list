@@ -205,6 +205,8 @@ export const formUtilsModule = (() => {
     const viewTitle = document.querySelector('.view-title');
     const viewDesc = document.querySelector('.view-desc');
     const viewPriority = document.querySelector('.view-priority');
+    const viewProject = document.querySelector('.view-project-title');
+
     const viewDueDate = document.querySelector('.view-due-date');
     const viewDateCreated = document.querySelector('.view-date-created');
     const viewPriorityIcon = document.querySelector('.view-detail-priority');
@@ -368,6 +370,7 @@ export const formUtilsModule = (() => {
                 viewDesc.innerText = "no description..."
             }
             viewPriority.innerText = formattedPriority;
+            viewProject.innerText = elViewTask.project;
 
             displayPriorityColor(viewPriorityIcon, elViewTask.priority, "high", "medium", "low");
 
