@@ -1,5 +1,5 @@
-import { createNewTask, taskList } from "./create-task";
-import { updatePopulateStorage } from "./index";
+import { createNewTask, taskList, createNewProject, projectList } from "./create-task";
+import { updatePopulateStorage, updatePopulateProjectStorage } from "./index";
 import format from 'date-fns/format';
 import getHours from 'date-fns/getHours';
 import { utcToZonedTime } from 'date-fns-tz'
@@ -30,17 +30,23 @@ export const displayAllTasks = (title, todolist) => {
     }
 }
 
-export const displayNewProject = (title) => {
+export const displayAllProjects = (projectlist) => {
+    for(let project of projectlist) {
+        displayNewProject(project.id, project.title)
+    }
+}
+
+export const displayNewProject = (id, title) => {
     let projectTitle = title
-    let dataCard;
+    let dataCard = id;
     const projectItems = document.querySelector('.project-items');
     const projectClone = projectItem.cloneNode(true);
-    if(projectItems.children.length > 0) {
-        dataCard = Number(projectItems.lastElementChild.dataset.project);
-    } else {
-        dataCard = 0;
-    }
-    projectClone.dataset.project = (dataCard + 1);
+    // if(projectItems.children.length > 0) {
+    //     dataCard = Number(projectItems.lastElementChild.dataset.project);
+    // } else {
+    //     dataCard = 0;
+    // }
+    projectClone.dataset.project = id;
     let newLink = projectClone.children[1];
     let deleteBtn = projectClone.lastElementChild;
     deleteBtn.addEventListener('click', (e) => {
@@ -48,7 +54,7 @@ export const displayNewProject = (title) => {
         let parent = deleteBtn.parentNode;
         let deleteProjectId = parent.dataset.project.at(-1);
         console.log(parent)
-        formUtilsModule.openDeleteProjectDialogue(deleteProjectId, projectTitle);
+        formUtilsModule.openDeleteProjectDialogue(id, projectTitle);
     })
     newLink.innerText = projectTitle;
     projectItems.appendChild(projectClone);
@@ -142,7 +148,8 @@ export const displayNewTask = (id, title, desc, priority, date, dateCreate, proj
 }
 
 const formatDueDate = (date) => {
-    const formattedDate = format(new Date(date), 'MMM do');
+    let newDate = utcToZonedTime(date, 'UTC');
+    const formattedDate = format(new Date(newDate), 'MMM do');
     return formattedDate;
 }
 
@@ -253,7 +260,7 @@ export const formUtilsModule = (() => {
         deleteItemDialogueOverlay.classList.remove('is-visible');
     }
 
-    const openAddProject = () => {
+    const openAddProject = (deleteId) => {
         addProjectOverlay.classList.add('is-visible');
         newProjectTitleInput.focus();
     }
@@ -389,25 +396,35 @@ export const formUtilsModule = (() => {
     const deleteProject = (projectDeleteId, projectTitle) => {
         projectDeleteId = currentDeleteProjectId;
         projectTitle = currentProjectTitle;
+        console.log(projectTitle);
         let arr = taskList.getDefaultTaskList();
+        console.log(arr);
         arr.forEach(element => {
             if(element.project === projectTitle) {
-                console.log(projectTitle)
+                console.log(element)
                 let index = arr.indexOf(arr.find(x => x.id === element.id))
                 // console.log(index)
                 taskList.removeTask(index);
+                updatePopulateStorage(taskList.getDefaultTaskList());
+                console.log(taskList.getDefaultTaskList())
             }
-            mainTitle.innerText = "Today";
-            while(todoList.hasChildNodes()) {
-                todoList.removeChild(todoList.firstChild);
-            }
-            displayAllTasks("Today");
         })
+        mainTitle.innerText = "Today";
+        while(todoList.hasChildNodes()) {
+            todoList.removeChild(todoList.firstChild);
+        }
+        displayAllTasks("Today", taskList.getDefaultTaskList());
 
+        let projectArr = projectList.getProjects();
+        let index = projectArr.indexOf(projectArr.find(x => x.id === projectDeleteId));
+        projectList.removeProject(index);
+        updatePopulateProjectStorage(projectList.getProjects())
         let currentProjectItem = document.querySelector(`[data-project="${projectDeleteId}"]`);
         currentProjectItem.remove();
         console.log(arr);
+        console.log(projectList.getProjects());
         closeDeleteProjectDialogue();
+
     }
 
     const deleteProjectAggregator = (projectDeleteId, projectTitle) => {
@@ -530,7 +547,9 @@ export const formUtilsModule = (() => {
 
     newProjectForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        displayNewProject(newProjectTitleInput.value);
+        let id;
+        createNewProject(id, newProjectTitleInput.value);
+        updatePopulateProjectStorage(projectList.getProjects());
         closeAddProject();
     })
 

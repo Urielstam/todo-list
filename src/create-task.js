@@ -1,5 +1,5 @@
-import { formUtilsModule, displayNewTask } from "./display-content";
-import { updatePopulateStorage } from "./index";
+import { formUtilsModule, displayNewTask, displayNewProject } from "./display-content";
+import { updatePopulateStorage, updatePopulateProjectStorage } from "./index";
 
 const exampleTodo = {
     id: "0",
@@ -21,6 +21,11 @@ const exampleTodo2 = {
     dateCreated: "2023-01-18T18:28:44.626Z",
     project: "Today",
     completed: false
+}
+
+const exampleProject = {
+    id: "0",
+    title: "work"
 }
 
 // TODO Create todoList array object to store all todos
@@ -58,6 +63,33 @@ export const taskList = (() => {
 
 })();
 
+export const projectList = (() => {
+
+    let _defualtProjectList = [exampleProject];
+
+    const getProjects = () => {
+        return _defualtProjectList;
+    }
+
+    const addProject = (project) => {
+        _defualtProjectList.push(project);
+    }
+
+    const removeProject = (index) => {
+        if(index > -1) {
+            _defualtProjectList.splice(index, 1);
+        }
+    
+    }
+
+    return {
+        getProjects: getProjects,
+        addProject: addProject,
+        removeProject: removeProject
+    }
+    
+})();
+
 
 const deleteTask = () => {
     // Delete
@@ -92,8 +124,14 @@ const taskFactory = (id, title, desc, priority, dueDate, dateCreated, project, c
     };
 }
 
-const setId = () => {
-    let arr = taskList.getDefaultTaskList()
+const projectFactory = (id, title) => {
+    return {
+        id,
+        title
+    }
+}
+
+const setId = (arr) => {
     let newId;
     if(arr.length < 1) {
         newId = 0;
@@ -110,7 +148,7 @@ export const createNewTask = (id, title, desc, priority, dueDate, dateCreated, p
     project = mainTitle.innerText;
     dateCreated = new Date();
     if(!id) {
-        id = setId();
+        id = setId(taskList.getDefaultTaskList());
     }
     let newTask = taskFactory(id, title, desc, priority, dueDate, dateCreated, project, completed);
     taskList.addTask(newTask);
@@ -119,6 +157,19 @@ export const createNewTask = (id, title, desc, priority, dueDate, dateCreated, p
     }
     console.log(taskList.getDefaultTaskList());
     displayNewTask(id, title, desc, priority, dueDate, completed);
+}
+
+export const createNewProject = (id, title) => {
+    if(!id) {
+        id = setId(projectList.getProjects());
+    }
+    let newProject = projectFactory(id, title);
+    projectList.addProject(newProject);
+    updatePopulateProjectStorage(projectList.getProjects());
+    // if(id > 1) {
+    // }
+    console.log(projectList.getProjects())
+    displayNewProject(id, title);
 }
 
 // createNewTask(exampleTodo.id, exampleTodo.title, exampleTodo.desc, 

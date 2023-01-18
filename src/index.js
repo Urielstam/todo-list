@@ -1,7 +1,7 @@
 import './style.css';
-import { taskList } from './create-task';
+import { taskList, createNewProject, projectList } from './create-task';
 import { openCloseSidebarModule, toggleThemeModule,  } from './theme-layout-utils';
-import { formUtilsModule, displayNewTask, displayNewProject, displayAllTasks } from "./display-content";
+import { formUtilsModule, displayNewTask, displayNewProject, displayAllProjects, displayAllTasks } from "./display-content";
 
 const todoList = document.querySelector('.todo-list');
 const allTasks = document.getElementById('all-tasks');
@@ -45,10 +45,25 @@ else {
 }
 
 let todoListArray;
+let projectListArray;
 
 const populateStorage = () => {
     localStorage.setItem('todolist', JSON.stringify(taskList.getDefaultTaskList()));
     getStorage();
+}
+
+const populateProjectStorage = () => {
+    localStorage.setItem('projectlist', JSON.stringify(projectList.getProjects()))
+    getProjectStorage();
+}
+
+
+const getStorage = () => {
+    todoListArray = JSON.parse(localStorage.getItem('todolist'));
+}
+
+const getProjectStorage = () => {
+    projectListArray = JSON.parse(localStorage.getItem('projectlist'));
 }
 
 export const updatePopulateStorage = (taskList) => {
@@ -56,31 +71,48 @@ export const updatePopulateStorage = (taskList) => {
     getStorage();
 }
 
-const getStorage = () => {
-    todoListArray = JSON.parse(localStorage.getItem('todolist'));
+export const updatePopulateProjectStorage = (projectList) => {
+    localStorage.setItem('projectlist', JSON.stringify(projectList));
+    getProjectStorage();
 }
+
 
 if(!localStorage.getItem('todolist')) {
     populateStorage();
+    
 } else {
     getStorage();
     if(JSON.stringify(todoListArray) !==  JSON.stringify(taskList.getDefaultTaskList())) {
         let arr = taskList.getDefaultTaskList()
         arr.splice(0, arr.length)
-        // for(let item of arr) {
-        //     let index = arr.indexOf(item);
-        //     taskList.removeTask(index);
-        // }
         for(let item of todoListArray) {
             arr.push(item);
         } 
     }
+    console.log("Todo stuff");
     console.log(todoListArray)
-    console.log(taskList.getDefaultTaskList())
+    console.log(taskList.getDefaultTaskList());
 }
 
-displayNewProject("Work");
-displayAllTasks("Today", todoListArray)
+if(!localStorage.getItem('projectlist')) {
+    populateProjectStorage();
+} else {
+    getProjectStorage();
+    if(JSON.stringify(projectListArray) !== JSON.stringify(projectList.getProjects())) {
+        let projectArr = projectList.getProjects();
+        projectArr.splice(0, projectArr.length);
+        for(let item of projectListArray) {
+            projectArr.push(item);
+        }
+    }
+    console.log("Project-stuff");
+    console.log(projectListArray);
+    console.log(projectList.getProjects());
+}
+
+
+displayAllTasks("Today", todoListArray);
+displayAllProjects(projectListArray)
 
 allTasks.addEventListener('click', (e) => {
     mainTitle.innerText = "All";
@@ -109,7 +141,8 @@ projectItemsContainer.addEventListener('click', (e) => {
         while(todoList.hasChildNodes()) {
             todoList.removeChild(todoList.firstChild);
         }
-        displayAllTasks(e.target.children[1].innerText, taskList.getDefaultTaskList());
+        displayAllTasks(e.target.children[1].innerText, todoListArray);
+        console.log(projectListArray)
     }
 
 })
