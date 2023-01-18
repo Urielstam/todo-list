@@ -1,6 +1,9 @@
 import { createNewTask, taskList } from "./create-task";
+import { updatePopulateStorage } from "./index";
 import format from 'date-fns/format';
-import getHours from 'date-fns/getHours'
+import getHours from 'date-fns/getHours';
+import { utcToZonedTime } from 'date-fns-tz'
+
 
 
 const mainTitle = document.querySelector('.main-title');
@@ -16,12 +19,13 @@ deleteProjectDiv.addEventListener('click', (e) => {
 })
 // let num = 0;
 
-export const displayAllTasks = (title) => {
-    let todoArr = taskList.getDefaultTaskList();
-    for (let todo of todoArr) {
+export const displayAllTasks = (title, todolist) => {
+    console.log(todolist)
+    // todolist = taskList.getDefaultTaskList();
+    for (let todo of todolist) {
         if (todo.project === title || title === "All") {
             // checkifCompleted();
-            displayNewTask(todo.id, todo.title, todo.desc, todo.priority, todo.dueDate, todo.project, todo.completed);
+            displayNewTask(todo.id, todo.title, todo.desc, todo.priority, todo.dueDate, todo.dateCreated, todo.project, todo.completed);
         }
     }
 }
@@ -51,7 +55,7 @@ export const displayNewProject = (title) => {
 }
 
 
-export const displayNewTask = (id, title, desc, priority, date, project, completed) => {
+export const displayNewTask = (id, title, desc, priority, date, dateCreate, project, completed) => {
     const todoList = document.querySelector('.todo-list');
     // let num = Number((todoList.lastElementChild.id).at(-1));
     // let num = taskList.getDefaultTaskList().length - 1;
@@ -100,9 +104,11 @@ export const displayNewTask = (id, title, desc, priority, date, project, complet
         if(checkbox.checked) {
             task.completed = true;
             console.log(arr)
+            updatePopulateStorage(arr);
         } else {
             task.completed= false;
             console.log('change')
+            updatePopulateStorage(arr);
             console.log(arr)
         }
     })
@@ -275,6 +281,7 @@ export const formUtilsModule = (() => {
         
         if(title) {
             createNewTask(id, title, desc, priority, dueDate);
+            updatePopulateStorage(taskList.getDefaultTaskList());
         }
     }
 
@@ -305,6 +312,7 @@ export const formUtilsModule = (() => {
         displayPriorityColor(currentEditItem, task.priority);
 
         console.log(taskList.getDefaultTaskList())
+        updatePopulateStorage(taskList.getDefaultTaskList());
 
     }
     
@@ -341,6 +349,7 @@ export const formUtilsModule = (() => {
     const viewDetailsAggregator = (viewEl, elViewId) => {
         let elViewTask = taskList.getDefaultTaskList().find(x => x.id === elViewId);
         let formattedDueDate = formatDueDate(elViewTask.dueDate)
+        console.log(elViewTask.dateCreated)
         let formattedDateCreated = formatDateCreated(elViewTask.dateCreated)
         let formattedPriority = elViewTask.priority.split('-')[1];
         console.log(formattedPriority)
@@ -357,6 +366,7 @@ export const formUtilsModule = (() => {
 
             viewDueDate.innerText = formattedDueDate;
             viewDateCreated.innerText = formattedDateCreated;
+            // updatePopulateStorage(taskList.getDefaultTaskList());
     }
 
     const deleteTaskItem = (elDeleteId) => {
@@ -368,6 +378,8 @@ export const formUtilsModule = (() => {
         currentDeleteItem.remove();
         console.log(taskList.getDefaultTaskList());
         closeDeleteItemDialogue();
+        updatePopulateStorage(taskList.getDefaultTaskList());
+
     }
 
     const deleteTaskItemAggregator = (elDeleteId) => {
@@ -485,7 +497,8 @@ export const formUtilsModule = (() => {
         return newDate;
     }
 
-    const formatDateCreated = (newDate) => {
+    const formatDateCreated = (date) => {
+        let newDate = utcToZonedTime(date, 'UTC');
         let formattedDateCreated;
         if (newDate) {
             const newDay = format(newDate, 'd');
