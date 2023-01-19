@@ -17,7 +17,7 @@ export const openCloseSidebarModule = (() => {
 
     const btn = document.querySelector('.open-aside');
     const side = document.querySelector('nav');
-    side.style.width = "250px"
+    // side.style.width = "250px"
     btn.addEventListener('click', (e) => {
         changeWidth(side)
     });
