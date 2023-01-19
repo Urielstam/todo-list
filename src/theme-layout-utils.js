@@ -21,17 +21,17 @@ export const openCloseSidebarModule = (() => {
     btn.addEventListener('click', (e) => {
         changeWidth(side)
     });
-
-    const changeWidth = (side) => {
-        if(side.style.width === "250px") {
-            side.style.width = "0";
-            // side.style.zIndex = "1";
-        } else {
-            side.style.width = "250px";
-            // side.style.zIndex = "10";
-        }
-    }
 })();
+
+export const changeWidth = (side) => {
+    if(side.style.width === "250px") {
+        side.style.width = "0";
+        // side.style.zIndex = "1";
+    } else {
+        side.style.width = "250px";
+        // side.style.zIndex = "10";
+    }
+}
 
 // const toggleSidebar = () => {
 //     let grid = document.querySelector(".contents");

@@ -1,6 +1,6 @@
 import './style.css';
 import { taskList, createNewProject, projectList } from './create-task';
-import { openCloseSidebarModule, toggleThemeModule,  } from './theme-layout-utils';
+import { openCloseSidebarModule, toggleThemeModule, changeWidth } from './theme-layout-utils';
 import { formUtilsModule, displayNewTask, displayNewProject, displayAllProjects, displayAllTasks } from "./display-content";
 
 const todoList = document.querySelector('.todo-list');
@@ -9,6 +9,9 @@ const todaysTasks = document.getElementById('today-tasks');
 const mainTitle = document.querySelector('.main-title');
 const projectItemsContainer = document.querySelector('.project-items');
 const projectItemList = document.querySelectorAll('.project-item');
+const side = document.querySelector('nav');
+const mediaQuery = window.matchMedia('(max-width: 625px)');
+
 
 const storageAvailable = (type) => {
     let storage;
@@ -122,6 +125,10 @@ allTasks.addEventListener('click', (e) => {
     }
     displayAllTasks("All", todoListArray);
     console.log(todoListArray)
+    if (mediaQuery.matches) {
+        console.log("matched")
+        changeWidth(side)
+      }
 })
 
 todaysTasks.addEventListener('click', (e) => {
@@ -131,6 +138,10 @@ todaysTasks.addEventListener('click', (e) => {
     }
     displayAllTasks("Today", todoListArray);
     console.log(taskList.getDefaultTaskList())
+    if (mediaQuery.matches) {
+        console.log("matched")
+        changeWidth(side)
+      }
 })
 
 
@@ -143,6 +154,10 @@ projectItemsContainer.addEventListener('click', (e) => {
         }
         displayAllTasks(e.target.children[1].innerText, todoListArray);
         console.log(projectListArray)
+        if (mediaQuery.matches) {
+            console.log("matched")
+            changeWidth(side)
+          }
     }
 
 })
