@@ -185,6 +185,8 @@ export const formUtilsModule = (() => {
     const form = document.querySelector('.create-new');
     const editForm = document.querySelector('form[class="edit"]')
     const addTodoBtn = document.querySelector('.add-todo-btn');
+    const addTodoText = document.querySelector('.add-todo-text');
+
     const closeNewFormBtns = document.querySelectorAll('.cancel-form-btn');
     const addTaskBtn = document.querySelector('button[class="form-btn add-task"]');
     const priorityRadios = document.querySelector('.priority-radios');
@@ -469,6 +471,11 @@ export const formUtilsModule = (() => {
     let priority = "priority-" + setPriority(newRadios);
     
     addTodoBtn.addEventListener('click', (e) => {
+        openNewForm();
+        dateCreated();
+    });
+
+    addTodoText.addEventListener('click', (e) => {
         openNewForm();
         dateCreated();
     });
