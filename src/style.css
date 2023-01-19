@@ -957,7 +957,7 @@ margin-left: 8px;
 .todo-item .cbx span:last-child:after {
 content: "";
 position: absolute;
-top: 8px;
+top: 12px;
 left: 0;
 height: 1px;
 width: 100%;
